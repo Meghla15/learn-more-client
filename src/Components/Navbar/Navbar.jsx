@@ -39,9 +39,7 @@ const Navbar = () => {
           </div>
           <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
           <li><p className="font-bold">{user.displayName ||"Name not founded"}</p></li>
-            {/* <li><Link to='/myAddFood'>My Added Food Item</Link></li>
-            <li><Link to='/addedFood'>Add a Food Item</Link></li> */}
-            <li><Link to='/all-page'> All Page</Link></li>
+            <li><Link to='dashboard'>Dashboard</Link></li>
             <li><button onClick={logout}>Logout</button></li>
           </ul>
         </div>):
