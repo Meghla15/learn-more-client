@@ -1,14 +1,14 @@
+
 import { Link } from "react-router-dom";
 import UseAuth from "../../Hooks/UseAuth";
 
 
-
 const Navbar = () => {
-    const {user} = UseAuth()
-    console.log(user)
-    return (
+   const {user, logout} = UseAuth()
+   console.log(user)
+     return (
         <div>
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-violet-50 mb-3">
   <div className="navbar-start">
     <div className="dropdown">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
@@ -18,8 +18,11 @@ const Navbar = () => {
 
     </div>
   </div>
-  <div className="navbar-center">
-   <Link to='/'>daisyUI</Link>
+  <div className="flex gap-1">
+    <img className="w-12 h-12" src="https://cdn3.iconfinder.com/data/icons/ios-web-user-interface-flat-circle-vol-3/512/Book_books_education_library_reading_open_book_study-512.png" alt="" />
+  <div className="navbar-center text-3xl font-bold bg-gradient-to-r from-fuchsia-500  to-purple-500 text-transparent bg-clip-text animate-gradient">
+   <Link to='/'>Learn More</Link>
+  </div>
   </div>
   <div className="navbar-end">
  
@@ -30,22 +33,26 @@ const Navbar = () => {
             <div className="w-10 rounded-full">
               <img
               
-               alt="" src= 'https://cdn-icons-png.freepik.com/256/709/709699.png?semt=ais_hybrid'
+               alt="" src={user?.photoURL || 'https://cdn-icons-png.freepik.com/256/709/709699.png?semt=ais_hybrid'}
                referrerPolicy="no-referrer" />
             </div>
           </div>
           <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-          {/* <li><p className="font-bold">{user.displayName ||"Name not founded"}</p></li> */}
+          <li><p className="font-bold">{user.displayName ||"Name not founded"}</p></li>
             {/* <li><Link to='/myAddFood'>My Added Food Item</Link></li>
             <li><Link to='/addedFood'>Add a Food Item</Link></li> */}
             <li><Link to='/all-page'> All Page</Link></li>
-            {/* <li><button onClick={logout}>Logout</button></li> */}
+            <li><button onClick={logout}>Logout</button></li>
           </ul>
-        </div>):(<Link to="/login">
-            <button className=" p-4 text-center  rounded-2xl bg-orange-600 text-white font-semibold text-xm mx-auto">
-              Login
-            </button>
-          </Link>)}
+        </div>):
+        (<ul className="flex lg:flex-row flex-col-reverse gap-1">
+            <li><Link to='/login'><button className=" p-3 px-5 text-center  rounded-2xl bg-gradient-to-r from-fuchsia-500  to-purple-500 text-white font-semibold text-xm mx-auto">Login</button></Link></li>
+            <li><Link to='/sign-up'><button className=" p-3 text-center  rounded-2xl bg-gradient-to-r from-fuchsia-500  to-purple-500 text-white font-semibold text-xm mx-auto">Sign Up</button></Link></li>
+        </ul> 
+          
+          
+       
+        )}
   </div>
 </div>
         </div>
