@@ -20,6 +20,7 @@ const SignUp = () => {
       const name = form.name.value
       const email = form.email.value
       const password = form.password.value
+      const role = form.role.value
   
       try {
         setLoading(true)
@@ -27,7 +28,8 @@ const SignUp = () => {
         const result = await createUser(email, password)
         console.log(result)
   
-        await updateUserProfile(name)
+        await updateUserProfile(name, role)
+        console.log(role)
         navigate('/')
         toast.success('Signup Successful')
       } catch (err) {
