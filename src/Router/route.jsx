@@ -7,6 +7,7 @@ import SignUp from "../Pages/Register/SignUp";
 import DashBoard from "../Pages/DashBoard/DashBoard";
 import PrivateRoute from "../Router/PrivetRoute/PrivetRoute";
 import DetailsPage from "../Pages/StudySessionPage/DetailsPage";
+import PaymentPage from "../Pages/PaymentPage/PaymentPage";
 const route = createBrowserRouter([{
     path:'/',
     element: <Root></Root>,
@@ -19,8 +20,12 @@ const route = createBrowserRouter([{
     },
    {
     path: '/detailsPage/:id',
-    element :<DetailsPage></DetailsPage>,
+    element :<PrivateRoute><DetailsPage></DetailsPage></PrivateRoute>,
     loader:({params}) =>fetch (`${import.meta.env.VITE_API_URL}/studySession/${params.id}`)
+   },
+   {
+    path : '/paymentPage',
+    element : <PaymentPage></PaymentPage>
    }]},
    {
     path : 'dashboard',
