@@ -6,6 +6,7 @@ import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/Register/SignUp";
 import DashBoard from "../Pages/DashBoard/DashBoard";
 import PrivateRoute from "../Router/PrivetRoute/PrivetRoute";
+import DetailsPage from "../Pages/StudySessionPage/DetailsPage";
 const route = createBrowserRouter([{
     path:'/',
     element: <Root></Root>,
@@ -13,8 +14,14 @@ const route = createBrowserRouter([{
     children :[
     {
       path: '/',
-      element :<Home></Home>
-    }]},
+      element :<Home></Home>,
+      loader:() =>fetch (`${import.meta.env.VITE_API_URL}/studySessions`)
+    },
+   {
+    path: '/detailsPage/:id',
+    element :<DetailsPage></DetailsPage>,
+    loader:({params}) =>fetch (`${import.meta.env.VITE_API_URL}/studySession/${params.id}`)
+   }]},
    {
     path : 'dashboard',
     element : <PrivateRoute><DashBoard></DashBoard></PrivateRoute>,

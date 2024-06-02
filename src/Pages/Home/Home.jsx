@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import Banner from "../../Components/Banner/Banner";
 import StudySection from "../../Components/HomeStudySection/StudySection";
 import TutorSection from "../../Components/TutorSection/TutorSection";
@@ -6,6 +7,7 @@ import TutorSection from "../../Components/TutorSection/TutorSection";
 const Home = () => {
     return (
         <div className="space-y-10 container mx-auto">
+            <Helmet><title>Learn More || Home</title></Helmet>
             <Banner></Banner>
             <StudySection></StudySection>
             <TutorSection></TutorSection>
