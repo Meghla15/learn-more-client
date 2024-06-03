@@ -8,6 +8,9 @@ import DashBoard from "../Pages/DashBoard/DashBoard";
 import PrivateRoute from "../Router/PrivetRoute/PrivetRoute";
 import DetailsPage from "../Pages/StudySessionPage/DetailsPage";
 import PaymentPage from "../Pages/PaymentPage/PaymentPage";
+import ViewBooked from "../Pages/DashBoard/Student/ViewBooked";
+import CreateNote from "../Pages/DashBoard/Student/CreateNote";
+import ManagePersonalNote from "../Pages/DashBoard/Student/ManagePersonalNote";
 const route = createBrowserRouter([{
     path:'/',
     element: <Root></Root>,
@@ -29,11 +32,20 @@ const route = createBrowserRouter([{
    }]},
    {
     path : 'dashboard',
-    element : <PrivateRoute><DashBoard></DashBoard></PrivateRoute>,
+    element : <DashBoard></DashBoard>,
     children : [
         {
-
-        }
+          path : '/dashboard/bookedSession',
+          element : <ViewBooked></ViewBooked>
+        },
+        {
+          path : '/dashboard/createNote',
+          element : <CreateNote></CreateNote>
+        },
+        {
+          path : '/dashboard/managePersonalNote',
+          element : <ManagePersonalNote></ManagePersonalNote>
+        },
     ]
 
    },

@@ -1,20 +1,18 @@
-import { Navigate, useLocation } from "react-router";
-import UseAuth from "../../Hooks/UseAuth";
-import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
+import { Link, useLocation } from 'react-router-dom';
+import UseAuth from '../../Hooks/UseAuth';
+import Login from '../../Pages/Login/Login';
 
-
-const PrivateRoute = ({ children }) => {
-    const { user, loading } = UseAuth();
-    const location = useLocation();
-
-    if(loading){
-        <LoadingSpinner></LoadingSpinner>
-    }
-
-    if (user) {
-        return children;
-    }
-    return <Navigate to="/login" state={{from: location}} replace></Navigate>
+const PrivetRoute = ({children}) => {
+    const {user} = UseAuth()
+    const location = useLocation()
+    if(!user){
+        return <Link state={location.pathname} to={'/login'}> <Login></Login> </Link>
+       }
+       return(
+        <div>
+            {children}
+        </div>
+       )
 };
 
-export default PrivateRoute;
+export default PrivetRoute;

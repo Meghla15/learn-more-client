@@ -1,16 +1,21 @@
-import { Navigate } from 'react-router-dom'
-import PropTypes from 'prop-types'
-import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner'
-const AdminRoute = ({ children }) => {
-  const [role, isLoading] = useRole()
+import { Navigate, useLocation } from "react-router-dom";
+import useAdmin from "../hooks/useAdmin";
+import UseAuth from "../../Hooks/UseAuth";
+import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner"
 
-  if (isLoading) return <LoadingSpinner />
-  if (role === 'admin') return children
-  return <Navigate to='/dashboard' />
-}
+const AdminRoute = (children) => {
+  const [user, loading] = UseAuth();
+  const [isAdmin, isAdminLoading] = useAdmin();
+  const location = useLocation();
 
-export default AdminRoute
+  if (loading || isAdminLoading) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
 
-AdminRoute.propTypes = {
-  children: PropTypes.element,
-}
+  if (user && isAdmin) {
+    return children;
+  }
+  return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
+};
+
+export default AdminRoute;
