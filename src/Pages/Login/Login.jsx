@@ -4,6 +4,7 @@ import UseAuth from "../../Hooks/UseAuth";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -23,8 +24,25 @@ const Login = () => {
       setLoading(true);
       // 1. sign in user
       await signIn(email, password);
+      Swal.fire({
+        title: "Login Successfully",
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `
+        }
+      });
       navigate(from);
-      toast.success("SignUp Successful");
+      // toast.success("SignUp Successful");
     } catch (err) {
       console.log(err);
       toast.error(err.message);
@@ -50,9 +68,25 @@ const Login = () => {
   const handleGoogleSignIn = async () => {
     try {
       await signInWithGoogle();
-
+      Swal.fire({
+        title: "Google Login Successfully",
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `
+        }
+      });
       navigate(from);
-      toast.success("SignUp Successful");
+      // toast.success("SignUp Successful");
     } catch (err) {
       console.log(err);
       toast.error(err.message);
