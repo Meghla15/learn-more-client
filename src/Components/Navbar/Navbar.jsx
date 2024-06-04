@@ -5,7 +5,7 @@ import UseAuth from "../../Hooks/UseAuth";
 
 const Navbar = () => {
    const {user, logout} = UseAuth()
-  //  console.log(user)
+   console.log(user)
      return (
         <div>
         <div className="navbar bg-violet-50 mb-3">
@@ -30,10 +30,10 @@ const Navbar = () => {
     {
           user?(<div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-            <div className="w-10 rounded-full">
+          <div className="w-10 rounded-full">
               <img
               
-               alt="" src={user?.photoURL || 'https://cdn-icons-png.freepik.com/256/709/709699.png?semt=ais_hybrid'}
+               alt="" src={user?.photoURL || 'not found'}
                referrerPolicy="no-referrer" />
             </div>
           </div>

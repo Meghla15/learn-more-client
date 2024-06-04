@@ -1,5 +1,9 @@
 import { Helmet } from 'react-helmet-async';
 import { NavLink, Outlet } from 'react-router-dom';
+import { FaBookmark } from "react-icons/fa";
+import { SlNotebook } from "react-icons/sl";
+import { GiNotebook } from "react-icons/gi";
+import { GiMaterialsScience } from "react-icons/gi";
 
 const DashBoard = () => {
     return (
@@ -12,18 +16,24 @@ const DashBoard = () => {
                <h1 className='px-8 text-xm font-semibold'>We are always with you</h1>
                 <ul className="menu p-4">
                     <li>
-                        <NavLink to="/dashboard/bookedSession">
+                        <NavLink to="bookedSession">
+                            <FaBookmark></FaBookmark>
                             Booked Session</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/dashboard/createNote">
-                            {/* <FaCalendar></FaCalendar> */}
+                        <NavLink to="createNote">
+                            <SlNotebook></SlNotebook>
                             Create Note</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/dashboard/managePersonalNote">
-                           
+                        <NavLink to="managePersonalNote">
+                           <GiNotebook></GiNotebook>
                             Manage Personal Note </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="ViewAllMaterials">
+                           <GiMaterialsScience></GiMaterialsScience>
+                           View All Study Materials </NavLink>
                     </li>
                    
                     <div className="divider"></div>

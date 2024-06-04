@@ -64,7 +64,7 @@ const SignUp = () => {
       navigate("/");
 
       Swal.fire({
-        title: "SignUp with Google Successfully",
+        title: "SignUp with Google",
         showClass: {
           popup: `
       animate__animated

@@ -42,7 +42,9 @@ const DetailsPage = () => {
 
            </div>
            
-             <Link to='/paymentPage'> <button className="btn w-1/2 mt-1 bg-gradient-to-r from-fuchsia-500  to-purple-500 text-white">Book Now</button></Link>
+          {registrationFee === "Free"? <button className="btn disabled w-1/2 mt-1  text-white">Book Now</button> :<Link to={`/paymentPage/${_id}`}> <button className="btn w-1/2 mt-1 bg-gradient-to-r from-fuchsia-500  to-purple-500 text-white">Book Now</button></Link>}
+             
+             
                 
             </div>
         </div>
