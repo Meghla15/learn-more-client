@@ -5,12 +5,13 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
 import Swal from "sweetalert2";
+import SocialLogin from "../Register/SocialLogin";
 
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state || "/";
-  const { signInWithGoogle, signIn, loading, setLoading, resetPassword } =
+  const {  signIn, loading, setLoading, resetPassword } =
     UseAuth();
   const [email, setEmail] = useState("");
 
@@ -65,33 +66,33 @@ const Login = () => {
   };
 
   // handle google signin
-  const handleGoogleSignIn = async () => {
-    try {
-      await signInWithGoogle();
-      Swal.fire({
-        title: "Google Login Successfully",
-        showClass: {
-          popup: `
-            animate__animated
-            animate__fadeInUp
-            animate__faster
-          `
-        },
-        hideClass: {
-          popup: `
-            animate__animated
-            animate__fadeOutDown
-            animate__faster
-          `
-        }
-      });
-      navigate(from);
-      // toast.success("SignUp Successful");
-    } catch (err) {
-      console.log(err);
-      toast.error(err.message);
-    }
-  };
+  // const handleGoogleSignIn = async () => {
+  //   try {
+  //     await signInWithGoogle();
+  //     Swal.fire({
+  //       title: "Google Login Successfully",
+  //       showClass: {
+  //         popup: `
+  //           animate__animated
+  //           animate__fadeInUp
+  //           animate__faster
+  //         `
+  //       },
+  //       hideClass: {
+  //         popup: `
+  //           animate__animated
+  //           animate__fadeOutDown
+  //           animate__faster
+  //         `
+  //       }
+  //     });
+  //     navigate(from);
+  //     // toast.success("SignUp Successful");
+  //   } catch (err) {
+  //     console.log(err);
+  //     toast.error(err.message);
+  //   }
+  // };
   return (
     <div className="flex lg:flex-row flex-col-reverse gap-4 justify-evenly items-center bg-violet-50 ">
       <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-purple-100 text-gray-900">
@@ -173,17 +174,7 @@ const Login = () => {
           </p>
           <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
         </div>
-        <div className="flex justify-center items-center space-x-2  m-3 p-2 border-gray-300 cursor-pointer">
-          <button
-            disabled={loading}
-            onClick={handleGoogleSignIn}
-            className="disabled:cursor-not-allowed flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer"
-          >
-            <FcGoogle size={32} />
-
-            <p>Continue with Google</p>
-          </button>
-        </div>
+        <SocialLogin></SocialLogin>
         <p className="px-6 text-sm text-center text-gray-400">
           Do not have an account yet?
           <Link to="/sign-up" className="hover:underline text-fuchsia-700 ">

@@ -1,13 +1,17 @@
 import { createUserWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
-import { GoogleAuthProvider } from "firebase/auth";
+import { GoogleAuthProvider,GithubAuthProvider } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 // import axios from "axios";
 import { auth } from "../Firebase/Firebase.config";
+import axios from "axios";
+
 
 export const AuthContext = createContext(null);
 
 // google Provider
 const googleProvider = new GoogleAuthProvider();
+//github Provider 
+const githubProvider = new GithubAuthProvider(); 
 const AuthProvider = ({children}) => {
     const [user, setUser] = useState (null);
     const [loading, setLoading] =useState(true);
@@ -42,6 +46,11 @@ const AuthProvider = ({children}) => {
         setLoading(true)
         return signInWithPopup(auth, googleProvider)
       }
+      // gitHub Login
+      const githubLogin = () =>{
+        setLoading(true)
+        return signInWithPopup(auth, githubProvider)
+    }
        // logout
      const logout =()=>{
         setUser(null)
@@ -57,13 +66,15 @@ const AuthProvider = ({children}) => {
   //   )
   //   return data
   // }
+
+   
      // onAuthStateChange
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
       setUser(currentUser)
       if (currentUser) {
         // getToken(currentUser.email)
-        // console.log(currentUser)
+        console.log(currentUser)
       }
       setLoading(false)
     })
@@ -75,7 +86,7 @@ const AuthProvider = ({children}) => {
 
     const authInfo= {
         user, loading, setLoading,createUser,signIn,
-        signInWithGoogle,updateUserProfile,resetPassword, logout
+        signInWithGoogle,githubLogin, updateUserProfile,resetPassword, logout
     }
     return (
       <div>

@@ -5,7 +5,7 @@ import StudySectionCard from "./StudySectionCard";
 
 const StudySection = () => {
     const studySections = useLoaderData()
-    console.log(studySections)
+    // console.log(studySections)
     return (
         <div >
             <h1 className="text-4xl text-center font-bold">Study Session</h1>

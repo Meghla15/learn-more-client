@@ -1,90 +1,56 @@
 import { Link, useNavigate } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
-import toast from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
 import UseAuth from "../../Hooks/UseAuth";
 import Swal from "sweetalert2";
+import { useForm } from "react-hook-form";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import SocialLogin from "./SocialLogin";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic()
+  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const from = location?.state || "/";
   const {
     createUser,
-    signInWithGoogle,
     updateUserProfile,
     loading,
-    setLoading,
   } = UseAuth();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const name = form.name.value;
-    const email = form.email.value;
-    const password = form.password.value;
-    const role = form.role.value;
+  
 
-    try {
-      setLoading(true);
-
-      const result = await createUser(email, password);
-      console.log(result);
-
-      await updateUserProfile(name, role);
-      console.log(role);
-      navigate("/");
-
-      Swal.fire({
-        title: "SignUp Successfully",
-        showClass: {
-          popup: `
-      animate__animated
-      animate__fadeInUp
-      animate__faster
-    `,
-        },
-        hideClass: {
-          popup: `
-      animate__animated
-      animate__fadeOutDown
-      animate__faster
-    `,
-        },
-      });
-    } catch (err) {
-      console.log(err);
-      toast.error(err.message);
-    }
-  };
-
-  // handle google signin
-  const handleGoogleSignIn = async () => {
-    try {
-      await signInWithGoogle();
-
-      navigate("/");
-
-      Swal.fire({
-        title: "SignUp with Google",
-        showClass: {
-          popup: `
-      animate__animated
-      animate__fadeInUp
-      animate__faster
-    `,
-        },
-        hideClass: {
-          popup: `
-      animate__animated
-      animate__fadeOutDown
-      animate__faster
-    `,
-        },
-      });
-    } catch (err) {
-      console.log(err);
-      toast.error(err.message);
-    }
-  };
+  const onSubmit = data =>{
+    createUser(data.email, data.password)
+    .then(result =>{
+      const loggedUser = result.user;
+      console.log(loggedUser)
+      updateUserProfile(data.name, data.photoURL)
+      .then(() =>{
+        const userInfo = {
+          name: data.name,
+          email: data.email,
+          role : 'student',
+          status : 'Verified'
+        }
+        axiosPublic.post('/users', userInfo)
+        .then(res =>{
+          if(res.data.insertedId){
+            console.log('user added to the database')
+            reset()
+            Swal.fire({
+              position: "top-end",
+              icon: 'success',
+              title: "User SignUp Successfully",
+              showConfirmButton: false,
+              timer: 1500
+            })
+            navigate(from);
+          }
+        })
+      })
+      .catch(error => console.log(error))
+    })
+  }
   return (
     <div className="flex justify-center items-center min-h-screen bg-violet-50">
       <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-purple-100 text-gray-900">
@@ -95,7 +61,7 @@ const SignUp = () => {
           <p className="text-sm text-gray-400">Welcome to Learn More</p>
         </div>
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
           noValidate=""
           action=""
           className="space-y-6 ng-untouched ng-pristine ng-valid"
@@ -105,45 +71,40 @@ const SignUp = () => {
               <label htmlFor="email" className="block mb-2 text-sm">
                 Name
               </label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                placeholder="Enter Your Name Here"
-                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-fuchsia-500 bg-gray-200 text-gray-900"
-                data-temp-mail-org="0"
-              />
+              <input type="text"  {...register("name", { required: true })} name="name" placeholder="Name" className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-fuchsia-500 bg-gray-200 text-gray-900" />
+                                {errors.name && <span className="text-red-600">Name is required</span>}
             </div>
 
             <div>
               <label htmlFor="email" className="block mb-2 text-sm">
                 Email address
               </label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                required
-                placeholder="Enter Your Email Here"
-                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-fuchsia-500 bg-gray-200 text-gray-900"
-                data-temp-mail-org="0"
-              />
+              <input type="email"  {...register("email", { required: true })} name="email" placeholder="email" className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-fuchsia-500 bg-gray-200 text-gray-900" />
+                                {errors.email && <span className="text-red-600">Email is required</span>}
             </div>
+            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Photo URL</span>
+                                </label>
+                                <input type="text"  {...register("photoURL", { required: true })} placeholder="Photo URL" className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-fuchsia-500 bg-gray-200 text-gray-900" />
+                                {errors.photoURL && <span className="text-red-600">Photo URL is required</span>}
+                            </div>
             <div>
               <div className="flex justify-between">
                 <label htmlFor="password" className="text-sm mb-2">
                   Password
                 </label>
               </div>
-              <input
-                type="password"
-                name="password"
-                autoComplete="new-password"
-                id="password"
-                required
-                placeholder="*******"
-                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-fuchsia-500 bg-gray-200 text-gray-900"
-              />
+              <input type="password"  {...register("password", {
+                                    required: true,
+                                    minLength: 6,
+                                    maxLength: 20,
+                                    pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
+                                })} placeholder="password" className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-fuchsia-500 bg-gray-200 text-gray-900" />
+                                {errors.password?.type === 'required' && <p className="text-red-600">Password is required</p>}
+                                {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be 6 characters</p>}
+                                {errors.password?.type === 'maxLength' && <p className="text-red-600">Password must be less than 20 characters</p>}
+                                {errors.password?.type === 'pattern' && <p className="text-red-600">Password must have one Uppercase one lower case, one number and one special character.</p>}
             </div>
             <div>
               <div className="flex justify-between">
@@ -168,7 +129,7 @@ const SignUp = () => {
               type="submit"
               className="bg-gradient-to-r from-fuchsia-500  to-purple-500 w-full rounded-md py-3 text-white"
             >
-              {" "}
+              
               {loading ? (
                 <TbFidgetSpinner className="animate-spin m-auto" />
               ) : (
@@ -184,17 +145,8 @@ const SignUp = () => {
           </p>
           <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
         </div>
-        <div className="flex justify-center items-center space-x-2 border m-3 p-2  border-rounded cursor-pointer">
-          <button
-            disabled={loading}
-            onClick={handleGoogleSignIn}
-            className="disabled:cursor-not-allowed flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer"
-          >
-            <FcGoogle size={32} />
-
-            <p>Continue with Google</p>
-          </button>
-        </div>
+        <SocialLogin></SocialLogin>
+       
         <p className="px-6 text-sm text-center text-gray-400">
           Already have an account?
           <Link
