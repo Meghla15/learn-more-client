@@ -12,6 +12,9 @@ import ViewBooked from "../Pages/DashBoard/Student/ViewBooked";
 import CreateNote from "../Pages/DashBoard/Student/CreateNote";
 import ManagePersonalNote from "../Pages/DashBoard/Student/ManagePersonalNote";
 import ViewAllMaterials from "../Pages/DashBoard/Student/ViewAllMaterials";
+import ViewAllUsers from "../Pages/DashBoard/Admin/ViewAllUsers";
+import ViewAllStudySession from "../Pages/DashBoard/Admin/ViewAllStudySession";
+import AllMaterials from "../Pages/DashBoard/Admin/AllMaterials";
 const route = createBrowserRouter([{
     path:'/',
     element: <Root></Root>,
@@ -54,6 +57,21 @@ const route = createBrowserRouter([{
           path : 'ViewAllMaterials',
           element : <ViewAllMaterials></ViewAllMaterials>
         },
+        // Admin Route
+        {
+          path : 'ViewAllUsers',
+          element : <ViewAllUsers></ViewAllUsers>
+        },
+        {
+          path : 'viewAllStudySession',
+          element : <ViewAllStudySession></ViewAllStudySession>,
+          loader:() =>fetch (`${import.meta.env.VITE_API_URL}/studySessions`),
+        },
+        {
+          path : 'AllMaterial',
+          element : <AllMaterials></AllMaterials>
+        },
+
     ]
 
    },

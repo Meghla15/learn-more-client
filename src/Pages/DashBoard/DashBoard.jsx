@@ -4,8 +4,11 @@ import { FaBookmark } from "react-icons/fa";
 import { SlNotebook } from "react-icons/sl";
 import { GiNotebook } from "react-icons/gi";
 import { GiMaterialsScience } from "react-icons/gi";
+import { FaUsersLine } from 'react-icons/fa6';
+import { SiSession } from 'react-icons/si';
 
 const DashBoard = () => {
+    const isAdmin = true;
     return (
         <div>
             <Helmet><title>Learn More || Dashboard</title></Helmet>
@@ -15,8 +18,28 @@ const DashBoard = () => {
                <h1 className='pt-3 px-8 text-xl font-bold'>Learn More</h1>
                <h1 className='px-8 text-xm font-semibold'>We are always with you</h1>
                 <ul className="menu p-4">
-                    <li>
-                        <NavLink to="bookedSession">
+                    {
+                        isAdmin?
+                        <>
+                        <li>
+                        <NavLink to='ViewAllUsers'>
+                            <FaUsersLine />
+                            View All users</NavLink>
+                        </li>
+                        <li>
+                        <NavLink to='viewAllStudySession'>
+                        <SiSession />
+                            View All Study Session</NavLink>
+                        </li>
+                        <li>
+                        <NavLink to='AllMaterial'>
+                        <GiMaterialsScience />
+                            View All Materials</NavLink>
+                        </li>
+                        </>   : 
+                        <>
+                         <li>
+                        <NavLink to='/bookedSession'>
                             <FaBookmark></FaBookmark>
                             Booked Session</NavLink>
                     </li>
@@ -35,6 +58,8 @@ const DashBoard = () => {
                            <GiMaterialsScience></GiMaterialsScience>
                            View All Study Materials </NavLink>
                     </li>
+                        </> 
+                    }
                    
                     <div className="divider"></div>
                     <li>

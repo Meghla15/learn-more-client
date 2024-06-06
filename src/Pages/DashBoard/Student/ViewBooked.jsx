@@ -1,8 +1,17 @@
 import { Link, useLoaderData } from "react-router-dom";
+import UseAuth from "../../../Hooks/UseAuth";
+import { useState } from "react";
+import axios from "axios";
 
 const ViewBooked = () => {
   const studySections = useLoaderData()
-  console.log(studySections)
+     const {user} = UseAuth()
+     const [booked , setBooked] = useState()
+     useState(() =>{
+      const getData = async () =>{
+        const {data} = await axios()
+      }
+     })
     return (
         <div>
            <h1>student er booked kora session gulor details show korbe</h1> 

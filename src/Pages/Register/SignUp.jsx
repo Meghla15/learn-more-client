@@ -11,6 +11,7 @@ const SignUp = () => {
   const axiosPublic = useAxiosPublic()
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const from = location?.state || "/";
+
   const {
     createUser,
     updateUserProfile,
@@ -29,7 +30,7 @@ const SignUp = () => {
         const userInfo = {
           name: data.name,
           email: data.email,
-          role : 'student',
+          role : 'student' ,
           status : 'Verified'
         }
         axiosPublic.post('/users', userInfo)
