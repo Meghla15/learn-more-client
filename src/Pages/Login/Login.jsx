@@ -183,9 +183,7 @@ const Login = () => {
           .
         </p>
       </div>
-      <div>
-        <h1>something</h1>
-      </div>
+      
     </div>
   );
 };

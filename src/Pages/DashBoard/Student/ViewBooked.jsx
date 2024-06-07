@@ -14,7 +14,6 @@ const ViewBooked = () => {
      })
     return (
         <div>
-           <h1>student er booked kora session gulor details show korbe</h1> 
            <div className="mb-16">
       <section className="container px-4 mx-auto">
         <div className="flex items-center mt-6 gap-x-3 ">

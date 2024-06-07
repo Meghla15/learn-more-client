@@ -22,39 +22,39 @@ const DashBoard = () => {
                         isAdmin?
                         <>
                         <li>
-                        <NavLink to='ViewAllUsers'>
+                        <NavLink to='/dashboard/ViewAllUsers'>
                             <FaUsersLine />
                             View All users</NavLink>
                         </li>
                         <li>
-                        <NavLink to='viewAllStudySession'>
+                        <NavLink to='/dashboard/viewAllStudySession'>
                         <SiSession />
                             View All Study Session</NavLink>
                         </li>
                         <li>
-                        <NavLink to='AllMaterial'>
+                        <NavLink to='/dashboard/AllMaterial'>
                         <GiMaterialsScience />
                             View All Materials</NavLink>
                         </li>
                         </>   : 
                         <>
                          <li>
-                        <NavLink to='/bookedSession'>
+                        <NavLink to='/dashboard/bookedSession'>
                             <FaBookmark></FaBookmark>
                             Booked Session</NavLink>
                     </li>
                     <li>
-                        <NavLink to="createNote">
+                        <NavLink to="/dashboard/createNote">
                             <SlNotebook></SlNotebook>
                             Create Note</NavLink>
                     </li>
                     <li>
-                        <NavLink to="managePersonalNote">
+                        <NavLink to="/dashboard/managePersonalNote">
                            <GiNotebook></GiNotebook>
                             Manage Personal Note </NavLink>
                     </li>
                     <li>
-                        <NavLink to="ViewAllMaterials">
+                        <NavLink to="/dashboard/ViewAllMaterials">
                            <GiMaterialsScience></GiMaterialsScience>
                            View All Study Materials </NavLink>
                     </li>

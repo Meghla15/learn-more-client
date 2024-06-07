@@ -40,35 +40,35 @@ const route = createBrowserRouter([{
     element : <DashBoard></DashBoard>,
     children : [
         {
-          path: 'bookedSession',
+          path: '/dashboard/bookedSession',
           element : <ViewBooked></ViewBooked>,
           loader:() =>fetch (`${import.meta.env.VITE_API_URL}/studySessions`),
          
         },
         {
-          path : 'createNote',
+          path : '/dashboard/createNote',
           element : <CreateNote></CreateNote>
         },
         {
-          path : 'managePersonalNote',
+          path : '/dashboard/managePersonalNote',
           element : <ManagePersonalNote></ManagePersonalNote>
         },
         {
-          path : 'ViewAllMaterials',
+          path : '/dashboard/ViewAllMaterials',
           element : <ViewAllMaterials></ViewAllMaterials>
         },
         // Admin Route
         {
-          path : 'ViewAllUsers',
+          path : '/dashboard/ViewAllUsers',
           element : <ViewAllUsers></ViewAllUsers>
         },
         {
-          path : 'viewAllStudySession',
+          path : '/dashboard/viewAllStudySession',
           element : <ViewAllStudySession></ViewAllStudySession>,
           loader:() =>fetch (`${import.meta.env.VITE_API_URL}/studySessions`),
         },
         {
-          path : 'AllMaterial',
+          path : '/dashboard/AllMaterial',
           element : <AllMaterials></AllMaterials>
         },
 
