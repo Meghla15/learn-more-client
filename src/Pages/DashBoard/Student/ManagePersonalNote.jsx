@@ -1,9 +1,12 @@
-import React from 'react';
+import { useLoaderData } from "react-router-dom";
+
 
 const ManagePersonalNote = () => {
+  const storeNotes = useLoaderData()
+  console.log(storeNotes)
     return (
         <div className='w-full'>
-            <h1 className='text-2xl font-bold text-center mb-6'>Manage Your Personal Note Here</h1>
+            <h1 className='text-2xl font-bold text-center mb-6'>Manage Your Personal Note Here {storeNotes.length}</h1>
             <div className="overflow-x-auto">
   <table className="table">
     {/* head */}
@@ -17,12 +20,16 @@ const ManagePersonalNote = () => {
     </thead>
     <tbody>
       {/* row 1 */}
-      <tr>
-        <th>1</th>
-        <td>Cy Ganderton</td>
+      {
+        storeNotes.map((note, index) =>(
+          <tr key={note._id}>
+        <th>{index +1}</th>
+        <td>{note.title}</td>
         <td><button className='btn btn-secondary'>Update</button></td>
         <td><button className='btn btn-primary'>Delete</button></td>
       </tr>
+        ))
+      }
       
     </tbody>
   </table>

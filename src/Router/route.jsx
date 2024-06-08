@@ -51,7 +51,8 @@ const route = createBrowserRouter([{
         },
         {
           path : 'managePersonalNote',
-          element : <ManagePersonalNote></ManagePersonalNote>
+          element : <ManagePersonalNote></ManagePersonalNote>,
+          loader:() =>fetch (`${import.meta.env.VITE_API_URL}/storeNotes`),
         },
         {
           path: 'bookedSession',

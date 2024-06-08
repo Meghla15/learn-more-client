@@ -1,33 +1,64 @@
+import { useNavigate } from "react-router-dom";
 import UseAuth from "../../../Hooks/UseAuth";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 
 
 const CreateNote = () => {
 	const {user} = UseAuth();
-	console.log(user)
+    const navigate = useNavigate()
+    
+    const handleSave = async e =>{
+        e.preventDefault()
+        const form = e.target;
+        const email= form.email.value;
+        const title = form.title.value;
+        const description = form.description.value
+
+        const createNote = {email,title,description}
+        console.log(createNote)
+        try{
+            const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/storeNotes`, createNote)
+            console.log(data)
+            navigate('/dashboard/managePersonalNote')
+            Swal.fire({
+                title: "Create Note Successfully",
+				text: "You clicked the button!",
+				icon: "success"
+            })
+            
+           }
+           catch(error){
+            console.log(error)
+           }
+    }
+
     return (
         <div className="w-full container mx-auto">
             <h1 className="font-semibold text-center text-2xl">Create Your Note Here</h1>
             <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
    
 
-    <form>
+    <form onSubmit={handleSave}>
         <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
 		<div>
                 <label className="text-gray-700 dark:text-gray-200">Email Address</label>
-                <input id="emailAddress" type="email" defaultValue={user?.email||"Email not founded"} className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"/>
+                <input type="email" name="email" defaultValue={user?.email||"Email not founded"} className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"/>
             </div>
+		
             <div>
                 <label className="text-gray-700 dark:text-gray-200" >Title</label>
-                <input id="username" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"/>
+                <input name="title" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"/>
+            </div>
+            <div>
+                <label className="text-gray-700 dark:text-gray-200" >Description</label>
+                <input name="description" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"/>
             </div>
 
            
 
-            <div>
-                <label className="text-gray-700 dark:text-gray-200" >Description</label>
-                <input id="password" type="password" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"/>
-            </div>
+           
 
            
         </div>
