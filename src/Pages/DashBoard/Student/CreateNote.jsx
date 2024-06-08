@@ -6,7 +6,7 @@ const CreateNote = () => {
 	const {user} = UseAuth();
 	console.log(user)
     return (
-        <div>
+        <div className="w-full container mx-auto">
             <h1 className="font-semibold text-center text-2xl">Create Your Note Here</h1>
             <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
    
@@ -33,7 +33,7 @@ const CreateNote = () => {
         </div>
 
         <div className="flex justify-end mt-6">
-            <button className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Save</button>
+            <button className="px-8 py-2.5 leading-5 transition-colors duration-300 transform  bg-gradient-to-r from-fuchsia-500  to-purple-500 text-white font-semibold text-xm rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Save</button>
         </div>
     </form>
 </section>

@@ -2,9 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { FaTrashAlt, FaUsers } from "react-icons/fa";
+import axios from "axios";
+import { useState } from "react";
 
 
 const ViewAllUsers = () => {
+    const [search, setSearch] = useState();
+    const [user,setUser]=useState([])
     const axiosSecure = useAxiosSecure();
     const {data : users = [], refetch} = useQuery({
         queryKey:['users'],
@@ -58,15 +62,29 @@ const ViewAllUsers = () => {
             }
         })
     }
+
+    const handleSearch= e =>{
+        e.preventDefault()
+        const text = e.target.search.value
+        const getData =async () =>{
+                      const  {data} = await axios(`${import.meta.env.VITE_API_URL}/search?search=${text}`)
+                      setUser(data)
+                      console.log(data)
+                  }
+                  getData()
+        setSearch(text)
+    }
+    console.log(search)
    
     return (
         <div>
             <div className="flex justify-around my-4">
                 <h2 className="text-3xl font-bold">All Users :{users.length} </h2>
-                <label className="input input-bordered flex items-center gap-2"> 
-  <input type="text" className="grow" placeholder="User Name or Email" />
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70"><path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" /></svg>
-</label>
+
+                <form className="flex item-center justify-center gap-1" onSubmit={handleSearch}> 
+        <input type="text" placeholder="Search Here" name="search" className="border p-2 rounded-xl"/>
+        <input type="submit" value='Search' className="btn bg-fuchsia-600 text-white rounded-xl"/>
+       </form>
 
             </div>
             <div className="overflow-x-auto">

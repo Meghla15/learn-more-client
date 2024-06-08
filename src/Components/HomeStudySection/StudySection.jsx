@@ -8,7 +8,7 @@ const StudySection = () => {
     // console.log(studySections)
     return (
         <div >
-            <h1 className="text-4xl text-center font-bold">Study Session</h1>
+            <h1 className="text-4xl mt-4 text-center font-bold bg-gradient-to-r from-fuchsia-500  to-purple-500 text-transparent bg-clip-text animate-gradient">Study Session</h1>
          <div className='container  mx-auto grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:gap-4 md:gap-2 gap-2 lg:mt-10 mt-6 mb-16 px-4 lg:px-0 md:px-2 '>
          {
             studySections.map((studySession) =>(   <StudySectionCard key={studySections._id}

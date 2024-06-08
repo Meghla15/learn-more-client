@@ -1,20 +1,56 @@
-import { CardElement } from '@stripe/react-stripe-js';
-// import React, { useState } from 'react';
-import UseAuth from '../../Hooks/UseAuth';
-// import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import { useEffect, useState } from 'react';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import { useLoaderData } from 'react-router-dom';
 // import { useNavigate } from 'react-router-dom';
 
 const CheckoutForm = () => {
-    // const [error, setError] = useState('');
-    // const [clientSecret, setClientSecret] = useState('')
+    const [error, setError] = useState('');
+    const [clientSecret, setClientSecret] = useState('')
     // const [transactionId, setTransactionId] = useState('');
-    // const stripe = useStripe();
-    // const elements = useElements();
-    // const axiosSecure = useAxiosSecure();
-    const {user} = UseAuth();
+    const stripe = useStripe();
+    const elements = useElements();
+    const axiosSecure = useAxiosSecure();
     // const navigate = useNavigate();
-    const handleSubmit = e =>{
-        e.preventDefault()
+    const studySession = useLoaderData();
+    const {registrationFee} = studySession || {}
+
+    useEffect(() => {
+        if (registrationFee > 0) {
+            axiosSecure.post('/create-payment-intent', { price: registrationFee })
+                .then(res => {
+                    console.log(res.data.clientSecret);
+                    setClientSecret(res.data.clientSecret);
+                })
+        }
+
+    }, [axiosSecure, registrationFee])
+
+
+    const handleSubmit = async(event) =>{
+        event.preventDefault()
+        if (!stripe || !elements) {
+            return
+        }
+        const card = elements.getElement(CardElement)
+
+        if (card === null) {
+            return
+        }
+        
+        const { error, paymentMethod } = await stripe.createPaymentMethod({
+            type: 'card',
+            card
+        })
+
+        if (error) {
+            console.log('payment error', error);
+            setError(error.message);
+        }
+        else {
+            console.log('payment method', paymentMethod)
+            setError('');
+        }
        
     }
     return (
@@ -27,8 +63,7 @@ const CheckoutForm = () => {
     <form onSubmit={handleSubmit}>
         <div className="">
             <div className='flex justify-between mb-2'>
-            <p>User Name : {user.displayName}</p>
-            <p>User Email : {user.email}</p>
+           
             </div>
           
             
@@ -48,16 +83,17 @@ const CheckoutForm = () => {
                     },
                 }}
             />
-            {/* <button className="btn btn-sm btn-primary my-4" type="submit" disabled={!stripe || !clientSecret}>
-                Pay
-            </button>
-            <p className="text-red-600">{error}</p>
-            {transactionId && <p className="text-green-600"> Your transaction id: {transactionId}</p>} */}
+            
        
         </div>
 
         <div className="flex justify-end mt-6">
-            <button className="px-8 py-2.5 leading-5  transition-colors duration-300 transform bg-gradient-to-r from-fuchsia-500  to-purple-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Confirm</button>
+        <button className="px-8 py-2.5 leading-5  transition-colors duration-300 transform bg-gradient-to-r from-fuchsia-500  to-purple-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600" type="submit" disabled={!stripe || !clientSecret}>
+                Confirm
+            </button>
+            <p className="text-red-600">{error}</p>
+            {/* {transactionId && <p className="text-green-600"> Your transaction id: {transactionId}</p>} */}
+          
         </div>
     </form>
 </section> 
