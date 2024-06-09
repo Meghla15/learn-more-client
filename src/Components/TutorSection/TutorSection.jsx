@@ -4,7 +4,7 @@ import TutorSectionCard from "./TutorSectionCard";
 
 const TutorSection = () => {
 	const studySections = useLoaderData();
-	console.log(studySections)
+	// console.log(studySections)
     return (
         <div>
             <h1 className='text-4xl mt-4 text-center font-bold bg-gradient-to-r from-fuchsia-500  to-purple-500 text-transparent bg-clip-text animate-gradient'>Tutor Section</h1>

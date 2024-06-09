@@ -14,6 +14,7 @@ const ViewAllUsers = () => {
         queryKey:['users'],
         queryFn: async () =>{
             const res = await axiosSecure.get('/users');
+            setUser(res.data)
             return res.data
             
         }
@@ -74,7 +75,7 @@ const ViewAllUsers = () => {
                   getData()
         setSearch(text)
     }
-    console.log(search)
+    console.log(user)
    
     return (
         <div>
@@ -101,10 +102,10 @@ const ViewAllUsers = () => {
                     </thead>
                     <tbody>
                         {
-                            users.map((user, index) => <tr key={user._id}>
+                            user.map((u, index) => <tr key={u._id}>
                                 <th>{index + 1}</th>
-                                <td>{user.name}</td>
-                                <td>{user.email}</td>
+                                <td>{u.name}</td>
+                                <td>{u.email}</td>
                                 <td>
                                     { user.role === 'admin' ? 'Admin' : <button
                                         onClick={() => handleMakeAdmin(user)}
@@ -115,7 +116,7 @@ const ViewAllUsers = () => {
                                 </td>
                                 <td>
                                     <button
-                                        onClick={() => handleDeleteUser(user)}
+                                        onClick={() => handleDeleteUser(u)}
                                         className="btn btn-ghost btn-lg">
                                         <FaTrashAlt className="text-red-600"></FaTrashAlt>
                                     </button>

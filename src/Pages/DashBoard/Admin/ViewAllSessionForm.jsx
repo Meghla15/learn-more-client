@@ -1,24 +1,10 @@
-import { useLoaderData } from 'react-router-dom';
-// import ViewAllSessionForm from './ViewAllSessionForm';
+import React from 'react';
 
-
-const ViewAllStudySession = () => {
-
-    const studySections = useLoaderData()
-    console.log(studySections)
+const ViewAllSessionForm = ({studySession}) => {
+    const {_id, } = studySession || {}
     return (
         <div>
-            <section className='container px-4 mx-auto pt-12'>
-      <div className='flex items-center gap-x-3'>
-        <h2 className='text-3xl font-medium text-gray-800 '>Total Study Session</h2>
-
-        <span className='px-4 py-2 text-xs font-semibold text-white bg-fuchsia-400 rounded-full '>
-        {studySections.length}
-        </span>
-      </div>
-      
-
-      <div className='flex flex-col mt-6'>
+            <div className='flex flex-col mt-6'>
         <div className='-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
           <div className='inline-block min-w-full py-2 align-middle md:px-6 lg:px-8'>
             <div className='overflow-hidden border border-gray-200  md:rounded-lg'>
@@ -47,23 +33,24 @@ const ViewAllStudySession = () => {
                   </tr>
                 </thead>
                 <tbody className='bg-white divide-y divide-gray-200 '>
-                 {
-                  studySections.map((studySession) =>( 
-                  <tr key={studySections._id}>
+                  <tr>
                     <td className='px-4 py-4 text-sm text-gray-500  whitespace-nowrap'>
-                     {studySession.sessionTitle}
+                      Build Dynamic Website
                     </td>
                    
                     <td className='px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap'>
                       <div className='inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-yellow-100/60 text-yellow-500'>
                         <span className='h-1.5 w-1.5 rounded-full bg-yellow-500'></span>
-                        <h2 className='text-sm font-normal '>pending</h2>
+                        <h2 className='text-sm font-normal '>Pending</h2>
                       </div>
                     </td>
                     <td className='px-4 py-4 text-sm whitespace-nowrap'>
-                      <div  className='flex items-center gap-x-6'>
+                      <div className='flex items-center gap-x-6'>
+
+                   
+        
                         {/* Open the modal using document.getElementById('ID').showModal() method */}
-<button className="btn" onClick={()=>document.getElementById('my_modal_5').showModal()}><svg
+<button className="btn" onClick={()=>document.getElementById('my_modal_5').showModal()}> <svg
                             xmlns='http://www.w3.org/2000/svg'
                             fill='none'
                             viewBox='0 0 24 24'
@@ -79,35 +66,18 @@ const ViewAllStudySession = () => {
                           </svg></button>
 <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
   <div className="modal-box">
-    <form>
-    <label className="form-control w-full max-w-xs">
-  <div className="label">
-    <span className="label-text">Is the session free or paid?</span>
-  </div>
-  <input type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
-</label>
-    <label className="form-control w-full max-w-xs">
-  <div className="label">
-    <span className="label-text">If it is paid, specify the amount</span>
-  </div>
-  <input type="number" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
-</label>
-    <label className="form-control w-full max-w-xs">
-  <div className="label">
-    <span className="label-text">If it is free, just set the value to 0</span>
-  </div>
-  <input type="number" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
-</label>
-    </form>
+    <h3 className="font-bold text-lg">Hello!</h3>
+    <p className="py-4">Press ESC key or click the button below to close</p>
     <div className="modal-action">
       <form method="dialog">
         {/* if there is a button in form, it will close the modal */}
-        <button className="btn w-full">Save Data</button>
+        <button className="btn">Close</button>
       </form>
     </div>
   </div>
 </dialog>
-<button className='text-gray-500 transition-colors duration-200   hover:text-yellow-500 focus:outline-none'>
+
+                        <button className='text-gray-500 transition-colors duration-200   hover:text-yellow-500 focus:outline-none'>
                           <svg
                             xmlns='http://www.w3.org/2000/svg'
                             fill='none'
@@ -124,19 +94,16 @@ const ViewAllStudySession = () => {
                           </svg>
                         </button>
                       </div>
-                     
                     </td>
-                  </tr>))
-                 }
+                  </tr>
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
-    </section>
         </div>
     );
 };
 
-export default ViewAllStudySession;
+export default ViewAllSessionForm;

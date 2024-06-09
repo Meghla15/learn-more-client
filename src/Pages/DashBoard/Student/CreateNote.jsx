@@ -19,7 +19,7 @@ const CreateNote = () => {
         const createNote = {email,title,description}
         console.log(createNote)
         try{
-            const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/storeNotes`, createNote)
+            const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/storeNote`, createNote)
             console.log(data)
             navigate('/dashboard/managePersonalNote')
             Swal.fire({

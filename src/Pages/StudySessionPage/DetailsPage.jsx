@@ -1,9 +1,30 @@
+import axios from "axios";
+import { useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 
 const DetailsPage = () => {
     const studySession = useLoaderData();
     // console.log(studySession)
-    const {_id, averageRating, classEndDate, classStartTime, registrationEndDate, registrationStartDate, registrationFee, reviews, sessionDuration, sessionTitle, tutorName, tutorImg, sessionLongDescription} = studySession || {};
+    const {_id, averageRating, classEndDate, classStartTime, registrationEndDate, registrationStartDate, registrationFee, reviews, sessionDuration, sessionTitle, tutorName, tutorImg, sessionLongDescription,status} = studySession || {};
+    const [loading, setLoading] = useState(false);
+    const handleCheck = async () =>{
+      if(registrationFee==="Free"){
+        setLoading(true)
+        try{
+          const {data} = await axios.put(`${import.meta.env.VITE_API_URL}//create-payment-intent/${_id}`,studySession);
+          console.log(data)
+        }
+        catch(error){
+          console.log(error)
+        }
+        finally{
+          setLoading(false)
+        }
+        
+      }
+    
+      
+  }
     
     return (
         <div>
@@ -15,6 +36,7 @@ const DetailsPage = () => {
             <img className="object-cover w-full lg:mx-6 lg:w-1/2 rounded-xl h-72 lg:h-96" src={tutorImg || "https://t4.ftcdn.net/jpg/05/21/94/85/360_F_521948517_mS2CABoRkmHIgrUwlxLQ1WNiCWn9SCz2.jpg"}alt=""/>
 
             <div className="mt-6 lg:w-1/2 lg:mt-0 lg:mx-6 ">
+                <p className="text-xl text-blue-500 font-semibold uppercase">Status : {status}</p>
                 <p className="text-xl text-fuchsia-500 font-semibold uppercase">Tutor Name : {tutorName}</p>
 
                 <p className="block mt-4 text-2xl font-semibold text-gray-800 hover:underline dark:text-white">
@@ -29,9 +51,12 @@ const DetailsPage = () => {
                 <p className="text-xm font-semibold mt-2">Session Duration : {sessionDuration}</p>
                 <p className="text-xm font-semibold mt-2">Registration Fee : {registrationFee}</p>
                 <ul className='list-disc mt-2 text-xm font-semibold '> Reviews :
-              {studySession.reviews.map((review, index) => (
+              {/* {reviews?.map((review, index) => (
                <li className='text-xm opacity-70' key={index}> {review}</li>
-                ))}
+                ))} */}
+                {reviews? reviews.map((review, index) => (
+               <li className='text-xm opacity-70' key={index}> {review}</li>
+                )) : 'No reviews found'}
               </ul>
            <div className="flex items-center">
            <p className="text-xm font-semibold mt-1">Average Rating : {averageRating} 
@@ -42,9 +67,9 @@ const DetailsPage = () => {
 
            </div>
            
-          {registrationFee === "Free"? <button className="btn disabled w-1/2 mt-1  text-white">Book Now</button> :<Link to={`/paymentPage/${_id}`}> <button className="btn w-1/2 mt-1 bg-gradient-to-r from-fuchsia-500  to-purple-500 text-white">Book Now</button></Link>}
+          {registrationFee === "Free"?( <button onClick={handleCheck} className={`btn w-1/2 mt-1 text-white ${loading ? 'disabled' : ''}`} disabled={loading} >Book Now</button>) :(<Link to={`/paymentPage/${_id}`}> <button className="btn w-1/2 mt-1 bg-gradient-to-r from-fuchsia-500  to-purple-500 text-white">Book Now</button></Link>)}
              
-             
+          
                 
             </div>
         </div>

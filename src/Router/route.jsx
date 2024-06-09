@@ -16,6 +16,7 @@ import ViewAllUsers from "../Pages/DashBoard/Admin/ViewAllUsers";
 import ViewAllStudySession from "../Pages/DashBoard/Admin/ViewAllStudySession";
 import CreateStudySession from "../Pages/DashBoard/Tutor/CreateStudySession";
 import UploadMaterials from "../Pages/DashBoard/Tutor/UploadMaterials";
+import Update from "../Pages/DashBoard/Student/Update";
 const route = createBrowserRouter([{
     path:'/',
     element: <Root></Root>,
@@ -48,6 +49,11 @@ const route = createBrowserRouter([{
         {
           path : 'createNote',
           element : <CreateNote></CreateNote>
+        },
+        {
+          path : 'update/:id',
+          element : <Update></Update>,
+          loader:({params}) =>fetch (`${import.meta.env.VITE_API_URL}/storeNote/${params.id}`)
         },
         {
           path : 'managePersonalNote',

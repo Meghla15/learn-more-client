@@ -33,8 +33,7 @@ const CreateStudySession = () => {
 			Swal.fire({
 				title: "Study Session Added Successfully",
 				text: "You clicked the button!",
-				icon: "success"
-		    })}
+				icon: "success"})}
 		catch(error){
 			console.log(error)
 		}

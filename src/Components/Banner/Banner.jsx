@@ -8,7 +8,7 @@ const Banner = () => {
   <div className="hero-content text-center text-neutral-content">
     <div className="">
       <h1 className="mb-5 text-white text-5xl font-bold">Welcome to Learn More</h1>
-      <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+      <p className="mb-5 w-2/3 mx-auto">Discover a dynamic online space where students and professionals come together to share knowledge, collaborate on projects, and achieve academic success. Join us at Learn More to experience real-time collaboration, resource sharing, and interactive learning tools designed to enhance your study experience.</p>
      
     </div>
   </div>
