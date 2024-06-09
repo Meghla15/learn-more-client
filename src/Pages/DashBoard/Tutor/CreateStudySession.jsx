@@ -14,17 +14,18 @@ const CreateStudySession = () => {
 		const name = form.name.value;
         const email = form.email.value;
 		const sessionTitle = form.sessionTitle.value;
-        const status = form.status.value;
-        const description = form.description.value;
+        const status = 'Pending';
+        const sessionLongDescription = form.sessionLongDescription.value;
         const sessionDuration = form.sessionDuration.value;
         const registrationStartDate = form.registrationStartDate.value;
         const registrationEndDate = form.registrationEndDate.value;
         const classStart = form.classStart.value;
         const classEnd = form.classEnd.value;
         const fee = form.fee.value;
+		// const tutorEmail = tutorEmail;
 
-		const addSession = {name, email,sessionTitle,status,description,sessionDuration,registrationStartDate, registrationEndDate,classStart,classEnd,fee}
-		console.log(addSession)
+		const addSession = {name, email,sessionTitle,status,sessionLongDescription,sessionDuration,registrationStartDate, registrationEndDate,classStart,classEnd,fee}
+		console.table(addSession)
 
 		try{
 			const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/studySession`, addSession)
@@ -75,7 +76,7 @@ const CreateStudySession = () => {
 				</div>
 				<div className="col-span-full sm:col-span-3">
 					<label  className="text-sm font-semibold">Session Description</label>
-					<input  name='description' type="text" placeholder="Description" className="w-full p-2 rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-violet-600 dark:border-gray-300" />
+					<input  name='sessionLongDescription' type="text" placeholder="Description" className="w-full p-2 rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-violet-600 dark:border-gray-300" />
 				</div>
 				<div className="col-span-full sm:col-span-3">
 					<label  className="text-sm font-semibold">Session Duration</label>

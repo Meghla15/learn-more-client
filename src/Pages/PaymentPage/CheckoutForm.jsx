@@ -16,6 +16,7 @@ const CheckoutForm = () => {
     console.log(studySession)
     const {registrationFee} = studySession || {}
     const registrationFeeNumber = parseFloat(registrationFee.replace('$', ''));
+    console.log(registrationFeeNumber)
 
     useEffect(() => {
         if (registrationFeeNumber > 0) {

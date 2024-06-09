@@ -60,7 +60,7 @@ const ManagePersonalNote = () => {
   }
     return (
         <div className='w-full'>
-            <h1 className='text-2xl font-bold text-center mb-6'>Manage Your Personal Note Here {storeNotes.length}</h1>
+            <h1 className='text-3xl font-bold bg-gradient-to-r from-fuchsia-500  to-purple-500 text-transparent bg-clip-text animate-gradient font-lato mb-6'>Manage Your Personal Note Here : {storeNotes.length}</h1>
             <div className="overflow-x-auto">
   <table className="table">
     {/* head */}

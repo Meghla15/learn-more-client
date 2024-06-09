@@ -20,7 +20,7 @@ const Navbar = () => {
   </div>
   <div className="flex gap-1">
     <img className="w-12 h-12" src="https://cdn3.iconfinder.com/data/icons/ios-web-user-interface-flat-circle-vol-3/512/Book_books_education_library_reading_open_book_study-512.png" alt="" />
-  <div className="navbar-center text-3xl font-bold bg-gradient-to-r from-fuchsia-500  to-purple-500 text-transparent bg-clip-text animate-gradient">
+  <div className="navbar-center text-3xl font-bold bg-gradient-to-r from-fuchsia-500  to-purple-500 text-transparent bg-clip-text animate-gradient font-lato">
    <Link to='/'>Learn More</Link>
   </div>
   </div>
