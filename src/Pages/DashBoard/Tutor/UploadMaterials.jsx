@@ -1,6 +1,8 @@
+import { useLoaderData } from "react-router-dom";
 
 
 const UploadMaterials = () => {
+	const studySession = useLoaderData()
 	const handleUpload = e =>{
 		e.preventDefault()
 		const form = e.target;
@@ -9,6 +11,7 @@ const UploadMaterials = () => {
 		const title = form.title.value
         const link = form.link.value
         const img= form.img.value
+		// const {email, sessionId, title, link, img} = studySession||{}
 	}
     return (
         <div>

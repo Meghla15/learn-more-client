@@ -4,6 +4,7 @@ import { createContext, useEffect, useState } from "react";
 // import axios from "axios";
 import { auth } from "../Firebase/Firebase.config";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
+import axios from "axios";
 
 
 export const AuthContext = createContext(null);
@@ -68,14 +69,29 @@ const AuthProvider = ({children}) => {
   //   return data
   // }
 
+  const saveUser = async user => {
+    const currentUser = {
+      email: user?.email,
+      role: 'student',
+      status: 'Verified',
+    }
+    const { data } = await axios.put(
+      `${import.meta.env.VITE_API_URL}/users`,
+      currentUser
+    )
+    return data
+  }
    
      // onAuthStateChange
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
       setUser(currentUser)
+      
       if (currentUser) {
+        saveUser(currentUser)
         const userInfo = {email : currentUser.email};
         axiosPublic.post('/jwt', userInfo)
+        
         .then(res =>{
           if(res.data.token){
             localStorage.setItem('access-token', res.data.token)

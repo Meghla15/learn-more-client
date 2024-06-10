@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import UseAuth from "../../Hooks/UseAuth";
 import { useState } from "react";
@@ -9,8 +9,6 @@ import SocialLogin from "../Register/SocialLogin";
 
 const Login = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location?.state || "/";
   const {  signIn, loading, setLoading, resetPassword } =
     UseAuth();
   const [email, setEmail] = useState("");
@@ -42,7 +40,7 @@ const Login = () => {
           `
         }
       });
-      navigate(from);
+      navigate('/');
       // toast.success("SignUp Successful");
     } catch (err) {
       console.log(err);

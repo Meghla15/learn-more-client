@@ -17,6 +17,7 @@ import ViewAllStudySession from "../Pages/DashBoard/Admin/ViewAllStudySession";
 import CreateStudySession from "../Pages/DashBoard/Tutor/CreateStudySession";
 import UploadMaterials from "../Pages/DashBoard/Tutor/UploadMaterials";
 import Update from "../Pages/DashBoard/Student/Update";
+import ViewAllSession from "../Pages/DashBoard/Tutor/ViewAllSession";
 const route = createBrowserRouter([{
     path:'/',
     element: <Root></Root>,
@@ -83,8 +84,8 @@ const route = createBrowserRouter([{
           element : <CreateStudySession></CreateStudySession>
         },
         {
-          path : 'ViewAllStudySession',
-          element : <ViewAllStudySession></ViewAllStudySession>
+          path : 'ViewAllSession',
+          element : <ViewAllSession></ViewAllSession>
         },
         {
           path : 'uploadMaterials',

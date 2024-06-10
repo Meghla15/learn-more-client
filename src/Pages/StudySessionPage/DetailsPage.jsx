@@ -1,13 +1,24 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
+import UseAuth from "../../Hooks/UseAuth";
+import Swal from "sweetalert2";
 
 const DetailsPage = () => {
+  const{user} = UseAuth()
     const studySession = useLoaderData();
     // console.log(studySession)
-    const {_id, averageRating, classEndDate, classStartTime, registrationEndDate, registrationStartDate, registrationFee, reviews, sessionDuration, sessionTitle, tutorName, tutorImg, sessionLongDescription,status} = studySession || {};
+    const {_id, averageRating, classEndDate, classStartTime, registrationEndDate, registrationStartDate, registrationFee, reviews, sessionDuration, sessionTitle, tutorName, tutorImg, sessionLongDescription,status,tutorEmail} = studySession || {};
     const [loading, setLoading] = useState(false);
+
     const handleCheck = async () =>{
+      if(user?.email === tutorEmail){
+        return Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+      });
+      }
       if(registrationFee==="Free"){
         setLoading(true)
         try{

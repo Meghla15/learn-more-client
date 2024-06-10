@@ -10,9 +10,9 @@ const CreateStudySession = () => {
 	const navigate = useNavigate()
 	const handleAddSession = async e =>{
 		e.preventDefault()
+		
 		const form = e.target;
 		const name = form.name.value;
-        const email = form.email.value;
 		const sessionTitle = form.sessionTitle.value;
         const status = 'Pending';
         const sessionLongDescription = form.sessionLongDescription.value;
@@ -22,12 +22,16 @@ const CreateStudySession = () => {
         const classStart = form.classStart.value;
         const classEnd = form.classEnd.value;
         const fee = form.fee.value;
-		// const tutorEmail = tutorEmail;
-
-		const addSession = {name, email,sessionTitle,status,sessionLongDescription,sessionDuration,registrationStartDate, registrationEndDate,classStart,classEnd,fee}
-		console.table(addSession)
-
+		const tutor ={
+			name :user?.displayName,
+			image: user?.photoURL,
+			email :user?.email
+		};
+		
+		
 		try{
+			const addSession = {name,sessionTitle,status,sessionLongDescription,sessionDuration,registrationStartDate, registrationEndDate,classStart,classEnd,fee, tutor}
+			console.table(addSession)
 			const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/studySession`, addSession)
 			console.log(data)
 			navigate('/')

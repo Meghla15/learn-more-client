@@ -1,22 +1,68 @@
 
 import { Link } from "react-router-dom";
 import UseAuth from "../../Hooks/UseAuth";
+import TutorRequestModal from "./TutorRequestModal";
+import { useState } from "react";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 
 const Navbar = () => {
    const {user, logout} = UseAuth()
+   const[isModalOpen, setIsModalOpen] = useState(false)
+   const axiosSecure = useAxiosSecure()
+
+   const closeModal = () => {
+    setIsModalOpen(false)
+  }
+  const modalHandler = async () =>{
+    try{
+      const currentUser = {
+        email: user?.email,
+        role: 'student',
+        status: 'Requested',
+    }
+    const { data } = await axiosSecure.put(`/users`, currentUser)
+    console.log(data)
+    if(data.modifiedCount > 0){
+      Swal.fire({
+        title: "Success",
+        text: "You clicked the button!",
+        icon: "success"
+      });
+    } else{
+      Swal.fire({
+        title: "Please Wait",
+        text: "You clicked the button!",
+        icon: "success"
+      });
+    }
+  }catch(err){
+    console.log(err)
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Something went wrong!",
+      footer: '<a href="#">Why do I have this issue?</a>'
+    });
+  } finally{
+    closeModal()
+  }}
   //  console.log(user)
      return (
         <div>
         <div className="navbar bg-violet-50 mb-3">
   <div className="navbar-start">
-    <div className="dropdown">
-      <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
-      </div>
+     <div>
+     <div className="hidden md:block">
+      <button onClick={()=>setIsModalOpen(true)} className="disabled:cursor-not-allowed cursor-pointer hover:bg-neutral-100 py-3 px-4 text-sm font-semibold rounded-full bg-fuchsia-300  transition">
+      Become A Tutor
+      </button>
 
+     </div>
+     <TutorRequestModal isOpen={isModalOpen} closeModal={closeModal} modalHandler={modalHandler}/>
+     </div>
 
-    </div>
   </div>
   <div className="flex gap-1">
     <img className="w-12 h-12" src="https://cdn3.iconfinder.com/data/icons/ios-web-user-interface-flat-circle-vol-3/512/Book_books_education_library_reading_open_book_study-512.png" alt="" />
