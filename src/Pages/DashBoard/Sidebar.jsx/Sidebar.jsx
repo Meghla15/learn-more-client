@@ -1,17 +1,21 @@
 import { useState } from 'react'
 import { GrLogout } from 'react-icons/gr'
 import { AiOutlineBars } from 'react-icons/ai'
-import { NavLink } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import UseAuth from '../../../Hooks/UseAuth'
-import { FaBookmark } from 'react-icons/fa'
-import { SlNotebook } from 'react-icons/sl'
-import { GiMaterialsScience, GiNotebook } from 'react-icons/gi'
 import { IoHome } from 'react-icons/io5'
+import useRole from '../../../Hooks/useRole'
+import DashboardItem from '../DashboardItem'
+import { FcSettings } from 'react-icons/fc'
+import TutorDashboard from '../AllRoleDashboard/TutorDashboard'
+import StudentDashboard from '../AllRoleDashboard/StudentDashboard'
+import AdminDashboard from '../AllRoleDashboard/AdminDashboard'
 
 const Sidebar = () => {
   const { logout } = UseAuth()
   const [isActive, setActive] = useState(false)
+  const [role, isLoading] = useRole()
+  console.log(role)
 
   // Sidebar Responsive Handler
   const handleToggle = () => {
@@ -61,60 +65,18 @@ const Sidebar = () => {
 
             
             <nav>
-              {/* BookedSession */}
-              <NavLink
-                to='bookedSession'
-                className={({ isActive }) =>
-                  `flex items-center px-4 py-2 my-5 text-white transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                    isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
-                  }`
-                }
-              >
-                <FaBookmark className='w-5 h-5' />
+              {/* student */}
+             {/* <StudentDashboard></StudentDashboard> */}
 
-                <span className='mx-4 font-medium'>View Booked Session</span>
-              </NavLink>
-
-              {/* Create Note */}
-              <NavLink
-                to='createNote'
-                className={({ isActive }) =>
-                  `flex items-center px-4 py-2 my-5 text-white  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                    isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
-                  }`
-                }
-              >
-                <SlNotebook className='w-5 h-5' />
-
-                <span className='mx-4 font-medium'>Create Note</span>
-              </NavLink>
-              {/* Manage Notes */}
-              <NavLink
-                to='managePersonalNote'
-                className={({ isActive }) =>
-                  `flex items-center px-4 py-2 my-5 text-white  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                    isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
-                  }`
-                }
-              >
-                <GiNotebook className='w-5 h-5' />
-
-                <span className='mx-4 font-medium'>Personal Notes</span>
-              </NavLink>
-              {/* View All Materials */}
-              <NavLink
-                to='/dashboard'
-                end
-                className={({ isActive }) =>
-                  `flex items-center px-4 py-2 my-5 text-white  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                    isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
-                  }`
-                }
-              >
-                <GiMaterialsScience className='w-5 h-5' />
-
-                <span className='mx-4 font-medium'>View All Materials</span>
-              </NavLink>
+              {/* Tutor  */}
+              {/* <TutorDashboard></TutorDashboard> */}
+              
+              {/* Admin */}
+              {/* <AdminDashboard></AdminDashboard> */}
+              
+              {role === 'student' && <StudentDashboard />}
+              {role === 'tutor' && <TutorDashboard />}
+              {role === 'admin' && <AdminDashboard />}
             </nav>
           </div>
         </div>
@@ -122,30 +84,24 @@ const Sidebar = () => {
         <div>
           <hr />
 
-          {/* View All Materials */}
-          <NavLink
-                to='/'
-                end
-                className={({ isActive }) =>
-                  `flex items-center px-4 py-2 my-5 text-white  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-gray-700 ${
-                    isActive ? 'bg-gray-300  text-gray-700' : 'text-gray-600'
-                  }`
-                }
-              >
-                <IoHome className='w-5 h-5' />
-
-                <span className='mx-4 font-medium'>Home</span>
-              </NavLink>
+          {/*Home */}
+          <DashboardItem label='Home' address='/' icon={IoHome}/>
+       {/* profile */}
+       <DashboardItem
+            label='Profile'
+            address='/dashboard/profile'
+            icon={FcSettings}
+          />
 
          
-          <button
+<Link to='/'><button
             onClick={logout}
-            className='flex w-full text-white items-center px-4 py-2 mt-5  hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform'
+            className='flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform'
           >
             <GrLogout className='w-5 h-5' />
 
-            <span className='mx-4  font-medium'>Logout</span>
-          </button>
+            <span className='mx-4 font-medium'>Logout</span>
+          </button></Link>
         </div>
       </div>
     </>

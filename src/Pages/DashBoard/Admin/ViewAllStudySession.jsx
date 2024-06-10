@@ -1,4 +1,9 @@
+import axios from 'axios';
+import { useState } from 'react';
+import { FaTrashAlt } from 'react-icons/fa';
 import { useLoaderData } from 'react-router-dom';
+import Swal from 'sweetalert2';
+// import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 // import ViewAllSessionForm from './ViewAllSessionForm';
 
 
@@ -6,6 +11,47 @@ const ViewAllStudySession = () => {
 
     const studySections = useLoaderData()
     console.log(studySections)
+    const [control, setControl] = useState(false);
+    
+
+    const handleDelete = async (id) => {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            const response = await axios.delete(
+              `${import.meta.env.VITE_API_URL}/studySession/${id}`,
+            )
+            const data = response.data;
+    
+            if (data.deletedCount > 0) {
+              setControl(!control)
+              Swal.fire({
+                title: 'Deleted!',
+                text: 'Your Purchase has been deleted.',
+                icon: 'success',
+              })
+            } else {
+              Swal.fire({
+                title: 'Error!',
+                text: 'Failed to delete the note.',
+                icon: 'error',
+              })
+            }
+          //  getData()
+          } catch (err) {
+            console.error(err)
+          }
+        }
+      })
+    }
     return (
         <div>
             <section className='container px-4 mx-auto pt-12'>
@@ -107,22 +153,7 @@ const ViewAllStudySession = () => {
     </div>
   </div>
 </dialog>
-<button className='text-gray-500 transition-colors duration-200   hover:text-yellow-500 focus:outline-none'>
-                          <svg
-                            xmlns='http://www.w3.org/2000/svg'
-                            fill='none'
-                            viewBox='0 0 24 24'
-                            strokeWidth='1.5'
-                            stroke='currentColor'
-                            className='w-5 h-5'
-                          >
-                            <path
-                              strokeLinecap='round'
-                              strokeLinejoin='round'
-                              d='M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636'
-                            />
-                          </svg>
-                        </button>
+          <button onClick={()=>handleDelete(studySession._id)} className='btn btn-primary'>Delete</button>
                       </div>
                      
                     </td>

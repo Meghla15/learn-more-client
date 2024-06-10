@@ -15,20 +15,22 @@ const CheckoutForm = () => {
     const studySession = useLoaderData();
    
     const {registrationFee} = studySession || {}
-    console.log(registrationFee)
+    const registrationFeeNumber = parseInt(registrationFee.replace("$", ""));
+console.log(registrationFeeNumber);
+    
     
     
 
     useEffect(() => {
-        if (registrationFee > 0) {
-            axiosSecure.post('/create-payment-intent', { price: registrationFee })
+        if (registrationFeeNumber > 0) {
+            axiosSecure.post('/create-payment-intent', { price: registrationFeeNumber })
                 .then(res => {
                     console.log(res.data.clientSecret);
                     setClientSecret(res.data.clientSecret);
                 })
         }
 
-    }, [axiosSecure, registrationFee])
+    }, [axiosSecure, registrationFeeNumber])
 
 
     const handleSubmit = async(event) =>{

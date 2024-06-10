@@ -18,6 +18,7 @@ import CreateStudySession from "../Pages/DashBoard/Tutor/CreateStudySession";
 import UploadMaterials from "../Pages/DashBoard/Tutor/UploadMaterials";
 import Update from "../Pages/DashBoard/Student/Update";
 import ViewAllSession from "../Pages/DashBoard/Tutor/ViewAllSession";
+import Profile from "../Pages/DashBoard/Profile";
 const route = createBrowserRouter([{
     path:'/',
     element: <Root></Root>,
@@ -66,6 +67,10 @@ const route = createBrowserRouter([{
           element : <ViewBooked></ViewBooked>,
           loader:() =>fetch (`${import.meta.env.VITE_API_URL}/studySessions`),
          
+        },
+        {
+          path: 'profile',
+          element:<Profile></Profile>
         },
         
         // Admin Route

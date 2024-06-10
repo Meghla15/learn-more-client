@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
-import { FaTrashAlt, FaUsers } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa";
 import axios from "axios";
 import { useState } from "react";
 
@@ -37,32 +37,7 @@ const ViewAllUsers = () => {
         })
     }
 
-    const handleDeleteUser = user =>{
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-        })
-        .then((result) =>{
-            if(result.isConfirmed){
-                axiosSecure.delete(`/users/${user._id}`)
-                .then(res =>{
-                    if (res.data.deletedCount > 0){
-                        refetch()
-                        Swal.fire({
-                            title: "Deleted!",
-                            text: "Your file has been deleted.",
-                            icon: "success"
-                        });
-                    }
-                })
-            }
-        })
-    }
+    
 
     const handleSearch= e =>{
         e.preventDefault()
@@ -115,11 +90,7 @@ const ViewAllUsers = () => {
                                     </button>}
                                 </td>
                                 <td>
-                                    <button
-                                        onClick={() => handleDeleteUser(u)}
-                                        className="btn btn-ghost btn-lg">
-                                        <FaTrashAlt className="text-red-600"></FaTrashAlt>
-                                    </button>
+                                  
                                 </td>
                             </tr>)
                         }

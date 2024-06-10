@@ -53,15 +53,17 @@ const Navbar = () => {
         <div>
         <div className="navbar bg-violet-50 mb-3">
   <div className="navbar-start">
-     <div>
-     <div className="hidden md:block">
-      <button onClick={()=>setIsModalOpen(true)} className="disabled:cursor-not-allowed cursor-pointer hover:bg-neutral-100 py-3 px-4 text-sm font-semibold rounded-full bg-fuchsia-300  transition">
-      Become A Tutor
-      </button>
-
-     </div>
-     <TutorRequestModal isOpen={isModalOpen} closeModal={closeModal} modalHandler={modalHandler}/>
-     </div>
+     {
+      user?(<div>
+        <div className="hidden md:block">
+         <button onClick={()=>setIsModalOpen(true)} className="disabled:cursor-not-allowed cursor-pointer hover:bg-neutral-100 py-3 px-4 text-sm font-semibold rounded-full bg-fuchsia-300  transition">
+         Become A Tutor
+         </button>
+   
+        </div>
+        <TutorRequestModal isOpen={isModalOpen} closeModal={closeModal} modalHandler={modalHandler}/>
+        </div>):( <button className="btn btn-disabled">Become A Tutor</button> )
+     }
 
   </div>
   <div className="flex gap-1">
