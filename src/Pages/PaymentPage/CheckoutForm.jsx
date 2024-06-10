@@ -2,12 +2,14 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useEffect, useState } from 'react';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { useLoaderData } from 'react-router-dom';
+import UseAuth from '../../Hooks/UseAuth';
 // import { useNavigate } from 'react-router-dom';
 
 const CheckoutForm = () => {
+    const {user} = UseAuth()
     const [error, setError] = useState('');
     const [clientSecret, setClientSecret] = useState('')
-    // const [transactionId, setTransactionId] = useState('');
+    const [transactionId, setTransactionId] = useState('');
     const stripe = useStripe();
     const elements = useElements();
     const axiosSecure = useAxiosSecure();
@@ -57,7 +59,27 @@ console.log(registrationFeeNumber);
             console.log('payment method', paymentMethod)
             setError('');
         }
-       
+    //    confirm payment
+    const  {paymentIntent, error: confirmError} = await stripe.confirmCardPayment(clientSecret, {
+        payment_method:{
+            card: card,
+            billing_details: {
+                email: user?.email || 'anonymous',
+                name: user?.displayName || 'anonymous'
+            }
+        }
+    })
+    if(error){
+        console.log('payment error', error);
+        setError(error.message);
+    }
+    else{
+        console.log('payment intent', paymentIntent)
+        // if(paymentIntent.status === "succeeded"){
+        //     setTransactionId(paymentIntent.id);
+        //     cartIds : studySession.map(session =>session.billing_details)
+        // }
+    }
     }
     return (
         <div>
