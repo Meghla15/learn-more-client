@@ -30,18 +30,18 @@ const UploadMaterials = () => {
 		// }
         const image_url = await imageUpload(image)
 		console.log(image_url)
-		const material = {email, sessionId} 
-		console.log(material)
+		const materials = {email, sessionId} 
+		console.log(materials)
 		
 
-		// try{
-        //     const{data} =await axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY}`,formData)
-		// 	console.log(data.data.display_url)
-		// 	// how to set this in image
+		try{
+            const{data} =await axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY}`,formData)
+			console.log(data.data.display_url)
+			// how to set this in image
 
-		// }catch(err){
-	    //    console.log(err)
-		// }
+		}catch(err){
+	       console.log(err)
+		}
 		
 	}
 	
@@ -73,12 +73,8 @@ const UploadMaterials = () => {
 
 
 				<div className="col-span-full sm:col-span-3">
-				<label name="title" className="border w-full px-5 py-3">Title</label>
-
-               <select name="options" className="col-span-full sm:col-span-3 py-3" >
-				{/* {
-					materials.map((material)=>(<option key={material.label} value={material.sessionId}>{material.sessionId}</option>))} */}
-		 </select>
+					<label className="text-sm">Title</label>
+					<input name="title" type="text" className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-violet-600 dark:border-gray-300 border p-3" />
 				</div>
 
 				<div className="col-span-full sm:col-span-3">

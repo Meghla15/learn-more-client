@@ -41,23 +41,38 @@ const Login = () => {
         }
       });
       navigate('/');
-      // toast.success("SignUp Successful");
+      Swal.fire({
+        title: "Login Successfully",
+        icon: "success"
+      });
     } catch (err) {
       console.log(err);
-      toast.error(err.message);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Error",
+      });
       setLoading(false);
     }
   };
 
   const handleResetPassword = async () => {
-    if (!email) return toast.error("Please write your email first!");
+    if (!email) return Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Error",
+    });
     try {
       await resetPassword(email);
       toast.success("Request Success! Check your email for further process...");
       setLoading(false);
     } catch (err) {
       console.log(err);
-      toast.error(err.message);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Invalid Email or Password",
+      });
       setLoading(false);
     }
     console.log(email);

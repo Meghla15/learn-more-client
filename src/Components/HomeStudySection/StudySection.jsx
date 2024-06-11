@@ -1,11 +1,19 @@
 import { Link, useLoaderData } from "react-router-dom";
 import StudySectionCard from "./StudySectionCard";
+import {  useState } from "react";
 
 
 
 const StudySection = () => {
     const studySections = useLoaderData()
     // console.log(studySections)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [postPerPage]= useState(6)
+
+    const indexOfLastPost = currentPage * postPerPage
+    const indexOfFirstPost= indexOfLastPost - postPerPage
+    const currentPost = studySections.slice(indexOfFirstPost, indexOfLastPost)
+    
     return (
         <div >
             <h1 className="text-4xl mt-4 text-center font-bold bg-gradient-to-r from-fuchsia-500  to-purple-500 text-transparent bg-clip-text animate-gradient">Study Session</h1>

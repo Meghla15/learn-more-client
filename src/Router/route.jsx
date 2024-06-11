@@ -21,6 +21,7 @@ import ViewAllSession from "../Pages/DashBoard/Tutor/ViewAllSession";
 import Profile from "../Pages/DashBoard/Profile";
 import PrivetRoute from "../Router/PrivetRoute/PrivetRoute";
 import AdminRoute from "./AdminRoute/AdminRoute";
+import TutorRoute from "./Tutor Route/TutorRoute";
 const route = createBrowserRouter([{
     path:'/',
     element: <Root></Root>,
@@ -94,11 +95,11 @@ const route = createBrowserRouter([{
         },
         {
           path : 'ViewAllSession',
-          element : <PrivetRoute><ViewAllSession></ViewAllSession></PrivetRoute>,
+          element :<PrivetRoute> <ViewAllSession></ViewAllSession></PrivetRoute>
         },
         {
           path : 'uploadMaterials',
-          element : <PrivetRoute><UploadMaterials></UploadMaterials></PrivetRoute>,
+          element :<PrivetRoute><UploadMaterials></UploadMaterials></PrivetRoute>,
           loader:() =>fetch (`${import.meta.env.VITE_API_URL}/materials`),
           
           // loader:() =>fetch (`${import.meta.env.VITE_API_URL}/studySessions`)

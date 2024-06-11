@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 
 const CheckoutForm = ({id}) => {
     const {user} = UseAuth()
+    // console.log(user)
     const navigate = useNavigate()
     const [error, setError] = useState('');
     const [clientSecret, setClientSecret] = useState('')
@@ -66,10 +67,14 @@ const CheckoutForm = ({id}) => {
             card: card,
             billing_details: {
                 email: user?.email || 'anonymous',
+               
                 name: user?.displayName || 'anonymous'
             }
+          
         }
+        
     })
+    console.log(user.email, "email somethings")
     if(error){
         console.log('payment error', error);
         setError(error.message);
@@ -85,6 +90,13 @@ const CheckoutForm = ({id}) => {
                 showConfirmButton: false,
                 timer: 1500
               });
+              try{
+                const { data } = await axiosSecure.post('/bookedSession', transactionId)
+                console.log(data)
+              }
+              catch(err){
+                console.log(err)
+              }
               navigate('/')
         }
     }

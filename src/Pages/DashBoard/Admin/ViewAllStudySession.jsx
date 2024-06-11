@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
-import { MdDelete } from 'react-icons/md';
-// import { FaTrashAlt } from 'react-icons/fa';
 import { useLoaderData } from 'react-router-dom';
 import Swal from 'sweetalert2';
 // import useAxiosSecure from '../../../Hooks/useAxiosSecure';
@@ -103,15 +101,37 @@ const ViewAllStudySession = () => {
                     </td>
                    
                     <td className='px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap'>
-                      <div className='inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-yellow-100/60 text-yellow-500'>
-                        <span className='h-1.5 w-1.5 rounded-full bg-yellow-500'></span>
-                        <h2 className='text-sm font-normal '>pending</h2>
-                      </div>
-                    </td>
+                        <div
+                          className={`inline-flex items-center px-3 py-1 rounded-full gap-x-2 ${
+                            studySession.status === 'Pending' &&
+                            'bg-yellow-100/60 text-yellow-500'
+                          } ${
+                            studySession.status === 'In Progress' &&
+                            'bg-blue-100/60 text-blue-500'
+                          } ${
+                            studySession.status === 'Complete' &&
+                            'bg-emerald-100/60 text-emerald-500'
+                          } ${
+                            studySession.status === 'Rejected' &&
+                            'bg-red-100/60 text-red-500'
+                          }`}
+                        >
+                          <span
+                            className={`h-1.5 w-1.5 rounded-full ${
+                              studySession.status === 'Pending' && 'bg-yellow-500'
+                            } ${
+                              studySession.status === 'In Progress' && 'bg-blue-500'
+                            } ${studySession.status === 'Complete' && 'bg-green-500'} ${
+                              studySession.status === 'Complete' && 'bg-green-500'
+                            } ${studySession.status === 'Rejected' && 'bg-red-500'} `}
+                          ></span>
+                          <h2 className='text-sm font-normal '>{studySession.status}</h2>
+                        </div>
+                      </td>
                     <td className='px-4 py-4 text-sm whitespace-nowrap'>
                       <div  className='flex items-center gap-x-6'>
                         {/* Open the modal using document.getElementById('ID').showModal() method */}
-<button className="btn" onClick={()=>document.getElementById('my_modal_5').showModal()}><svg
+<button  className="btn bg-fuchsia-400" onClick={()=>document.getElementById('my_modal_5').showModal()}><svg
                             xmlns='http://www.w3.org/2000/svg'
                             fill='none'
                             viewBox='0 0 24 24'
@@ -155,7 +175,7 @@ const ViewAllStudySession = () => {
     </div>
   </div>
 </dialog>
-          <button onClick={()=>handleDelete(studySession._id)} className='btn btn-primary'><AiFillDelete /></button>
+          <button onClick={()=>handleDelete(studySession._id)} className='btn bg-red-500'><AiFillDelete /></button>
                       </div>
                      
                     </td>

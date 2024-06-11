@@ -1,6 +1,5 @@
 import { Navigate, useLocation } from "react-router-dom";
 import UseAuth from "../../Hooks/UseAuth";
-import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner"
 import useAdmin from "../../Hooks/useAdmin";
 
 const AdminRoute = ({children}) => {
@@ -9,7 +8,7 @@ const AdminRoute = ({children}) => {
   const location = useLocation();
 
   if (loading || isAdminLoading) {
-    return <LoadingSpinner></LoadingSpinner>;
+    return 'Loading';
   }
 
   if (user && isAdmin) {
