@@ -2,6 +2,9 @@
 import { useEffect, useState } from "react";
 import UseAuth from "../../../Hooks/UseAuth";
 import axios from "axios";
+import Swal from "sweetalert2";
+import { FaUpload } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 
 const ViewAllSession = () => {
@@ -16,6 +19,15 @@ const ViewAllSession = () => {
         const { data } = await axios ( `${import.meta.env.VITE_API_URL}/viewAllSession/${user?.email}`)
         setSessions(data)
         // console.log(data)
+      }
+
+      const handleRequest = e =>{
+        e.preventDefault()
+        Swal.fire({
+            title: "Sending",
+            text: "Request Send Successfully",
+            icon: "success"
+          });
       }
         
 
@@ -75,9 +87,7 @@ const ViewAllSession = () => {
                       </div>
                     </td>
                     <td className='px-4 py-4 text-sm whitespace-nowrap'>
-                      <div  className='flex items-center gap-x-6'>
-                        {/* Open the modal using document.getElementById('ID').showModal() method */}
-<button className="btn" onClick={()=>document.getElementById('my_modal_5').showModal()}><svg
+                        <button onClick={handleRequest}><svg
                             xmlns='http://www.w3.org/2000/svg'
                             fill='none'
                             viewBox='0 0 24 24'
@@ -91,55 +101,11 @@ const ViewAllSession = () => {
                               d='m4.5 12.75 6 6 9-13.5'
                             />
                           </svg></button>
-<dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-  <div className="modal-box">
-    <form>
-    <label className="form-control w-full max-w-xs">
-  <div className="label">
-    <span className="label-text">Is the session free or paid?</span>
-  </div>
-  <input type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
-</label>
-    <label className="form-control w-full max-w-xs">
-  <div className="label">
-    <span className="label-text">If it is paid, specify the amount</span>
-  </div>
-  <input type="number" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
-</label>
-    <label className="form-control w-full max-w-xs">
-  <div className="label">
-    <span className="label-text">If it is free, just set the value to 0</span>
-  </div>
-  <input type="number" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
-</label>
-    </form>
-    <div className="modal-action">
-      <form method="dialog">
-        {/* if there is a button in form, it will close the modal */}
-        <button className="btn w-full">Save Data</button>
-      </form>
-    </div>
-  </div>
-</dialog>
-<button className='text-gray-500 transition-colors duration-200   hover:text-yellow-500 focus:outline-none'>
-                          <svg
-                            xmlns='http://www.w3.org/2000/svg'
-                            fill='none'
-                            viewBox='0 0 24 24'
-                            strokeWidth='1.5'
-                            stroke='currentColor'
-                            className='w-5 h-5'
-                          >
-                            <path
-                              strokeLinecap='round'
-                              strokeLinejoin='round'
-                              d='M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636'
-                            />
-                          </svg>
-                        </button>
-                      </div>
-                     
+                   
                     </td>
+                    <td className='px-4 py-4 text-sm whitespace-nowrap'>
+                       <button ><Link to='/dashboard/uploadMaterials'><FaUpload></FaUpload></Link></button>
+                      </td>
                   </tr>))
                  }
                    

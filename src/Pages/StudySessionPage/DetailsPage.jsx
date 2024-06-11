@@ -1,36 +1,38 @@
-import axios from "axios";
+// import axios from "axios";
 import { useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
-import UseAuth from "../../Hooks/UseAuth";
+// import UseAuth from "../../Hooks/UseAuth";
 import Swal from "sweetalert2";
+import useRole from "../../Hooks/useRole";
 
 const DetailsPage = () => {
-  const{user} = UseAuth()
+  // const{user} = UseAuth()
+  const role = useRole()
     const studySession = useLoaderData();
     // console.log(studySession)
-    const {_id, averageRating, classEndDate, classStartTime, registrationEndDate, registrationStartDate, registrationFee, reviews, sessionDuration, sessionTitle, tutorName, tutorImg, sessionLongDescription,status,tutorEmail} = studySession || {};
+    const {_id, averageRating, classEndDate, classStartTime, registrationEndDate, registrationStartDate, registrationFee, reviews, sessionDuration, sessionTitle, tutorName, tutorImg, sessionLongDescription,status} = studySession || {};
+    // const registrationFeeNumber = parseInt(registrationFee.replace("$", ""));
     const [loading, setLoading] = useState(false);
-
     const handleCheck = async () =>{
-      if(user?.email === tutorEmail){
+      if(role === 'tutor' ){
         return Swal.fire({
           icon: "error",
           title: "Oops...",
           text: "Something went wrong!",
       });
       }
-      if(registrationFee==="Free"){
+      if(registrationFee=== "Free"){
         setLoading(true)
-        try{
-          const {data} = await axios.put(`${import.meta.env.VITE_API_URL}//create-payment-intent/${_id}`,studySession);
-          console.log(data)
-        }
-        catch(error){
-          console.log(error)
-        }
-        finally{
-          setLoading(false)
-        }
+        // try{
+        //   const {data} = await axios.put(`${import.meta.env.VITE_API_URL}/create-payment-intent/${_id}`,updatePayment);
+        //   console.log(data)
+        // }
+        // catch(error){
+        //   console.log(error)
+        // }
+        // finally{
+        //   setLoading(false)
+        // }
         
       }
     

@@ -5,11 +5,13 @@ import TutorRequestModal from "./TutorRequestModal";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { AiOutlineMenu } from "react-icons/ai";
 
 
 const Navbar = () => {
    const {user, logout} = UseAuth()
    const[isModalOpen, setIsModalOpen] = useState(false)
+   const [isOpen, setIsOpen] = useState(false)
    const axiosSecure = useAxiosSecure()
 
    const closeModal = () => {
@@ -54,7 +56,7 @@ const Navbar = () => {
         <div className="navbar bg-violet-50 mb-3">
   <div className="navbar-start">
      {
-      user?(<div>
+      (user==="student")?(<div>
         <div className="hidden md:block">
          <button onClick={()=>setIsModalOpen(true)} className="disabled:cursor-not-allowed cursor-pointer hover:bg-neutral-100 py-3 px-4 text-sm font-semibold rounded-full bg-fuchsia-300  transition">
          Become A Tutor
@@ -62,7 +64,7 @@ const Navbar = () => {
    
         </div>
         <TutorRequestModal isOpen={isModalOpen} closeModal={closeModal} modalHandler={modalHandler}/>
-        </div>):( <button className="btn btn-disabled">Become A Tutor</button> )
+        </div>):( <button className="btn p-4 btn-disabled">Become A Tutor</button> )
      }
 
   </div>
@@ -72,11 +74,11 @@ const Navbar = () => {
    <Link to='/'>Learn More</Link>
   </div>
   </div>
-  <div className="navbar-end">
- 
+  <div className="navbar-end " >
    
     {
-          user?(<div className="dropdown dropdown-end">
+          user?(<div   className="dropdown dropdown-end">
+           
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
           <div className="w-10 rounded-full">
               <img
@@ -91,9 +93,9 @@ const Navbar = () => {
             <li><button onClick={logout}>Logout</button></li>
           </ul>
         </div>):
-        (<ul className="flex lg:flex-row flex-col-reverse gap-1">
-            <li><Link to='/login'><button className=" p-3 px-5 text-center  rounded-2xl bg-gradient-to-r from-fuchsia-500  to-purple-500 text-white font-semibold text-xm mx-auto">Login</button></Link></li>
-            <li><Link to='/sign-up'><button className=" p-3 text-center  rounded-2xl bg-gradient-to-r from-fuchsia-500  to-purple-500 text-white font-semibold text-xm mx-auto">Sign Up</button></Link></li>
+        (<ul className="flex lg:flex-row flex-col-reverse gap-1 mr-2">
+            <li><Link to='/login'><button className=" lg:p-3 p-1 lg:px-5 text-center  rounded-2xl bg-gradient-to-r from-fuchsia-500  to-purple-500 text-white font-semibold text-xm mx-auto">Login</button></Link></li>
+            <li><Link to='/sign-up'><button className=" lg:p-3  p-1 text-center  rounded-2xl bg-gradient-to-r from-fuchsia-500  to-purple-500 text-white font-semibold text-xm mx-auto">Sign Up</button></Link></li>
         </ul> 
           
           

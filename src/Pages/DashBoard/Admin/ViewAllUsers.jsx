@@ -1,41 +1,48 @@
-import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import Swal from "sweetalert2";
-import { FaUsers } from "react-icons/fa";
+// import { useQuery } from "@tanstack/react-query";
+// import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 const ViewAllUsers = () => {
     const [search, setSearch] = useState();
-    const [user,setUser]=useState([])
-    const axiosSecure = useAxiosSecure();
-    const {data : users = [], refetch} = useQuery({
-        queryKey:['users'],
-        queryFn: async () =>{
-            const res = await axiosSecure.get('/users');
-            setUser(res.data)
-            return res.data
+    const [users,setUsers]=useState([])
+    // const axiosSecure = useAxiosSecure();
+    // const {data : users = [], refetch} = useQuery({
+    //     queryKey:['users'],
+    //     queryFn: async () =>{
+    //         const {data} = await axiosSecure.get('/users');
+    //         // setUser(res.data)
+    //         return data
             
+    //     }
+      
+    // })
+    // console.log(users)
+
+    useEffect(()=>{
+        const getData= async ()=>{
+            const {data} = await axios(`${import.meta.env.VITE_API_URL}/users`);
+            setUsers(data)
         }
-        
-    })
-    const handleMakeAdmin = user =>{
-        axiosSecure.patch(`/users/admin/${user._id}`)
-        .then(res =>{
-            console.log(res.data)
-            if(res.data.modifiedCount > 0){
-                refetch();
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: `${user.name} is an Admin Now!`,
-                    showConfirmButton: false,
-                    timer: 1500
-                  });
-            }
-        })
-    }
+        getData()
+    },[])
+    // const handleMakeAdmin = user =>{
+    //     axiosSecure.patch(`/users/admin/${user._id}`)
+    //     .then(res =>{
+    //         console.log(res.data)
+    //         if(res.data.modifiedCount > 0){
+    //             refetch();
+    //             Swal.fire({
+    //                 position: "top-end",
+    //                 icon: "success",
+    //                 title: `${user.name} is an Admin Now!`,
+    //                 showConfirmButton: false,
+    //                 timer: 1500
+    //               });
+    //         }
+    //     })
+    // }
 
     
 
@@ -44,13 +51,13 @@ const ViewAllUsers = () => {
         const text = e.target.search.value
         const getData =async () =>{
                       const  {data} = await axios(`${import.meta.env.VITE_API_URL}/search?search=${text}`)
-                      setUser(data)
-                      console.log(data)
+                      setUsers(data)
+                    //   console.log(data)
                   }
                   getData()
         setSearch(text)
     }
-    console.log(user)
+    console.log(search)
    
     return (
         <div>
@@ -77,18 +84,18 @@ const ViewAllUsers = () => {
                     </thead>
                     <tbody>
                         {
-                            user.map((u, index) => <tr key={u._id}>
+                            users.map((u, index) => <tr key={u._id}>
                                 <th>{index + 1}</th>
                                 <td>{u.name}</td>
                                 <td>{u.email}</td>
-                                <td>
+                                {/* <td>
                                     { user.role === 'admin' ? 'Admin' : <button
                                         onClick={() => handleMakeAdmin(user)}
                                         className="btn btn-lg bg-fuchsia-500">
                                         <FaUsers className="text-white 
                                         text-2xl"></FaUsers>
                                     </button>}
-                                </td>
+                                </td> */}
                                 <td>
                                   
                                 </td>

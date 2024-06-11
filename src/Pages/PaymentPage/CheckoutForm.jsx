@@ -1,24 +1,25 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useEffect, useState } from 'react';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import UseAuth from '../../Hooks/UseAuth';
+import Swal from 'sweetalert2';
 // import { useNavigate } from 'react-router-dom';
 
-const CheckoutForm = () => {
+const CheckoutForm = ({id}) => {
     const {user} = UseAuth()
+    const navigate = useNavigate()
     const [error, setError] = useState('');
     const [clientSecret, setClientSecret] = useState('')
     const [transactionId, setTransactionId] = useState('');
     const stripe = useStripe();
     const elements = useElements();
     const axiosSecure = useAxiosSecure();
-    // const navigate = useNavigate();
     const studySession = useLoaderData();
    
     const {registrationFee} = studySession || {}
     const registrationFeeNumber = parseInt(registrationFee.replace("$", ""));
-console.log(registrationFeeNumber);
+// console.log(registrationFeeNumber);
     
     
     
@@ -75,10 +76,17 @@ console.log(registrationFeeNumber);
     }
     else{
         console.log('payment intent', paymentIntent)
-        // if(paymentIntent.status === "succeeded"){
-        //     setTransactionId(paymentIntent.id);
-        //     cartIds : studySession.map(session =>session.billing_details)
-        // }
+        if(paymentIntent.status === "succeeded"){
+            setTransactionId(paymentIntent.id);
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Payment Successfully",
+                showConfirmButton: false,
+                timer: 1500
+              });
+              navigate('/')
+        }
     }
     }
     return (
@@ -120,9 +128,10 @@ console.log(registrationFeeNumber);
                 Confirm
             </button>
             <p className="text-red-600">{error}</p>
-            {/* {transactionId && <p className="text-green-600"> Your transaction id: {transactionId}</p>} */}
+            
           
         </div>
+        {transactionId && <p className="text-green-600"> Your transaction id: {transactionId}</p>}
     </form>
 </section> 
         </div>

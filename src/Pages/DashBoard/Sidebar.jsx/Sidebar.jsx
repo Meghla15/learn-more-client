@@ -24,10 +24,11 @@ const Sidebar = () => {
   return (
     <>
       {/* Small Screen Navbar */}
-      <div className='bg-gradient-to-r from-fuchsia-500  to-purple-500 text-white font-semibold flex justify-between md:hidden'>
+      
+      <div className='bg-gradient-to-r from-fuchsia-500  to-purple-500 text-white font-semibold flex justify-between md:hidden '>
         <div>
-          <div className='block cursor-pointer p-4 font-bold text-xl'>
-            <Link to='/' className='flex gap-1 justify-center'>
+          <div className='block cursor-pointer p-4 font-bold'>
+          <Link to='/' className='flex gap-1 justify-center'>
             <img className="w-8 h-8" src="https://cdn3.iconfinder.com/data/icons/ios-web-user-interface-flat-circle-vol-3/512/Book_books_education_library_reading_open_book_study-512.png" alt="" />Learn More
             </Link>
           </div>
@@ -35,7 +36,7 @@ const Sidebar = () => {
 
         <button
           onClick={handleToggle}
-          className='mobile-menu-button p-3 rounded-xl focus:outline-none focus:bg-gray-500 '
+          className='mobile-menu-button p-4 focus:outline-none focus:bg-gray-200'
         >
           <AiOutlineBars className='h-5 w-5' />
         </button>

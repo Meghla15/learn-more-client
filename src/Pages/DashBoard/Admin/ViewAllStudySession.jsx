@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { FaTrashAlt } from 'react-icons/fa';
+import { AiFillDelete } from 'react-icons/ai';
+import { MdDelete } from 'react-icons/md';
+// import { FaTrashAlt } from 'react-icons/fa';
 import { useLoaderData } from 'react-router-dom';
 import Swal from 'sweetalert2';
 // import useAxiosSecure from '../../../Hooks/useAxiosSecure';
@@ -153,7 +155,7 @@ const ViewAllStudySession = () => {
     </div>
   </div>
 </dialog>
-          <button onClick={()=>handleDelete(studySession._id)} className='btn btn-primary'>Delete</button>
+          <button onClick={()=>handleDelete(studySession._id)} className='btn btn-primary'><AiFillDelete /></button>
                       </div>
                      
                     </td>
