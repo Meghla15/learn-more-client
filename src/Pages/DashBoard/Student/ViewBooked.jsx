@@ -27,7 +27,7 @@ const ViewBooked = () => {
           </h2>
 
           <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">
-          {/* {studySections.length} */}
+          {books?.length}
           </span>
         </div>
 
@@ -43,7 +43,15 @@ const ViewBooked = () => {
                         className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                       >
                         <div className="flex items-center gap-x-3">
-                          <span>Session Title</span>
+                          <span>No.</span>
+                        </div>
+                      </th>
+                      <th
+                        scope="col"
+                        className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                      >
+                        <div className="flex items-center gap-x-3">
+                          <span>User Email</span>
                         </div>
                       </th>
 
@@ -52,18 +60,11 @@ const ViewBooked = () => {
                         className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                       >
                         <button className="flex items-center gap-x-2">
-                          <span>Class Start</span>
+                          <span>Course Id</span>
                         </button>
                       </th>
 
-                      <th
-                        scope="col"
-                        className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
-                      >
-                        <button className="flex items-center gap-x-2">
-                          <span>Total Fee</span>
-                        </button>
-                      </th>
+                     
 
                       <th
                         scope="col"
@@ -75,27 +76,26 @@ const ViewBooked = () => {
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
                     
-                      <tr>
-                        <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                          <div className="inline-flex items-center gap-x-3">
-                            <div className="flex items-center gap-x-2">
-                              <img
-                                className="object-cover w-28 h-16 rounded-2xl"
-                                src=''
-                                alt=""
-                              />
-                            </div>
+                     {
+                      books?.map((book, index)=>(
+                        <tr key={book._id}>
+                       
+                        <td className="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                          <div>
+                            <h2 className="font-semibold text-xl text-gray-800 dark:text-white ">
+                              {index+1}
+                            </h2>
                           </div>
                         </td>
                         <td className="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                           <div>
                             <h2 className="font-semibold text-xl text-gray-800 dark:text-white ">
-                              {/* {food.food_name} */}
+                              {book.email}
                             </h2>
                           </div>
                         </td>
                         <td className="px-4 py-4 font-semibold text-xl text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                          {/* {food.price} $ */}
+                          {book.courseId} 
                         </td>
                         
                         <td className="px-4 py-4 text-sm whitespace-nowrap">
@@ -109,6 +109,8 @@ const ViewBooked = () => {
                           </td>
                         </td>
                       </tr>
+                      ))
+                     }
                    
                   </tbody>
                 </table>

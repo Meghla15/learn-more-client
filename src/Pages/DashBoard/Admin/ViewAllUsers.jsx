@@ -14,18 +14,19 @@ const ViewAllUsers = () => {
   } = useQuery({
     queryKey: ['users',search],
     queryFn: async () => {
-      const { data } = await axiosSecure(`/users`,{params: { search }})
+      const { data } = await axiosSecure(`/users?search=${search}`)
       return data
     },
   })
-
-//   console.log(users)
+  
+  console.log(users)
   if (isLoading) return 'Loading.........'
 
    const handleSearch = e=>{
     e.preventDefault()
     const text = e.target.search.value ;
     console.log(text)
+    setSearch(text)
     
    } 
   return (

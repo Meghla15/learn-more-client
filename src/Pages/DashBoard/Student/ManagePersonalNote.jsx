@@ -9,7 +9,7 @@ const ManagePersonalNote = () => {
   const{user} = UseAuth()
   // const[storeNotes, setStoreNote] = useState()
   const storeNotes = useLoaderData()
-  console.log(storeNotes)
+  // console.log(storeNotes)
   const [control, setControl] = useState(false);
   
   // useEffect(()=>{

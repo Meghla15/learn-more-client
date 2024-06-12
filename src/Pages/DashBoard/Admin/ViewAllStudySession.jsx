@@ -13,13 +13,13 @@ const ViewAllStudySession = () => {
     console.log(studySections)
     const [control, setControl] = useState(false);
 
-    const handleStatusUpdate = async(id)=>{
-      Swal.fire({
-        title: "Status Update Successfully",
-        text: "You clicked the button!",
-        icon: "success"
-      });
-    }
+    // const handleStatusUpdate = async(id)=>{
+    //   Swal.fire({
+    //     title: "Status Update Successfully",
+    //     text: "You clicked the button!",
+    //     icon: "success"
+    //   });
+    // }
     
     
 
@@ -142,7 +142,7 @@ const ViewAllStudySession = () => {
                         <div className='flex items-center gap-x-6'>
                           {/* Accept Button: In Progress */}
                           <button
-                            onClick={handleStatusUpdate}
+                            // onClick={handleStatusUpdate}
                         
                             className='disabled:cursor-not-allowed text-gray-500 transition-colors duration-200   hover:text-red-500 focus:outline-none'
                           >

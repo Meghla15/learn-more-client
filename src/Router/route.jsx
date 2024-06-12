@@ -21,7 +21,6 @@ import ViewAllSession from "../Pages/DashBoard/Tutor/ViewAllSession";
 import Profile from "../Pages/DashBoard/Profile";
 import PrivetRoute from "../Router/PrivetRoute/PrivetRoute";
 import AdminRoute from "./AdminRoute/AdminRoute";
-import TutorRoute from "./Tutor Route/TutorRoute";
 const route = createBrowserRouter([{
     path:'/',
     element: <Root></Root>,
