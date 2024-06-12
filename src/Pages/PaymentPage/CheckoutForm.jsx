@@ -91,7 +91,16 @@ const CheckoutForm = ({id}) => {
                 timer: 1500
               });
               try{
-                const { data } = await axiosSecure.post('/bookedSession', transactionId)
+                const pay= {
+                    transactionId : paymentIntent.id,
+                    email : user?.email,
+                    name : user?.displayName,
+                    courseId :id
+                }
+                console.log(pay)
+                
+                
+                const { data } = await axiosSecure.post('/bookedSessions', pay)
                 console.log(data)
               }
               catch(err){

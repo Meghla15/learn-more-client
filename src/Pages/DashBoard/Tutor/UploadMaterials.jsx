@@ -3,12 +3,15 @@
 import axios from "axios";
 import UseAuth from "../../../Hooks/UseAuth";
 import { imageUpload } from "../../../api/utilis";
+import { useLoaderData } from "react-router-dom";
 // import GoogleDrivePicker from "./GoogleDrivePicker";
 // import { useLoaderData } from "react-router-dom";
 
 
 const UploadMaterials = () => {
 	const{user}= UseAuth();
+	const studySession=  useLoaderData()
+	console.log(studySession)
 	// const [materials, setMaterials] = useState('')
 	// const materials= useLoaderData()
 	// console.log(materials)
@@ -18,41 +21,15 @@ const UploadMaterials = () => {
 		const form = e.target;
 		const email = form.email.value 
 		const sessionId = form.sessionId.value 
-		// const title = form.title.value
-        // const link = form.link.value
+		const title = form.title.value
         const image= form.image.files[0]
-		// const formData = new FormData()
-		// formData.append('image',image)
-		// const tutor ={
-		// 	name: user?.displayName,
-		// 	// image: user?.photoURL,
-		// 	email:user?.email
-		// }
+		
         const image_url = await imageUpload(image)
 		console.log(image_url)
-		const materials = {email, sessionId} 
-		console.log(materials)
-		
-
-		try{
-            const{data} =await axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY}`,formData)
-			console.log(data.data.display_url)
-			// how to set this in image
-
-		}catch(err){
-	       console.log(err)
-		}
-		
+		const materials = {email, sessionId,title} 
+		// console.log(materials)
 	}
 	
-	// useEffect(() => {
-	// 	getData()
-	//    }, [user])
-
-	//    const getData = async () => {
-	// 	const { data } = await axios ( `${import.meta.env.VITE_API_URL}/materials`)
-	// 	console.log(data)
-	//   }
     return (
         <div>
             <h1 className='text-3xl font-bold text-center mb-8'>Upload Materials</h1>

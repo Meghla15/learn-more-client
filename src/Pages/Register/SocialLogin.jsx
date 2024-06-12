@@ -10,7 +10,7 @@ const SocialLogin = () => {
     const {signInWithGoogle,githubLogin,loading} = UseAuth()
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
-    const from = location?.state || "/";
+    // const from = location?.state || "/";
     const handleSocialLogin = socialProvider =>{
         socialProvider()
         .then(result =>{
@@ -29,7 +29,7 @@ const SocialLogin = () => {
                     showConfirmButton: false,
                     timer: 1500
                   })
-                  navigate(from);
+                  navigate('/');
             })
         })
     }

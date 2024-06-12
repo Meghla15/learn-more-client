@@ -14,8 +14,8 @@ import AdminDashboard from '../AllRoleDashboard/AdminDashboard'
 const Sidebar = () => {
   const { logout } = UseAuth()
   const [isActive, setActive] = useState(false)
-  const [role, isLoading] = useRole()
-  console.log(role)
+  const [role] = useRole()
+  console.log({role})
 
   // Sidebar Responsive Handler
   const handleToggle = () => {

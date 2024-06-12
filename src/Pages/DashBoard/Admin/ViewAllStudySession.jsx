@@ -12,6 +12,15 @@ const ViewAllStudySession = () => {
     const studySections = useLoaderData()
     console.log(studySections)
     const [control, setControl] = useState(false);
+
+    const handleStatusUpdate = async(id)=>{
+      Swal.fire({
+        title: "Status Update Successfully",
+        text: "You clicked the button!",
+        icon: "success"
+      });
+    }
+    
     
 
     const handleDelete = async (id) => {
@@ -35,7 +44,7 @@ const ViewAllStudySession = () => {
               setControl(!control)
               Swal.fire({
                 title: 'Deleted!',
-                text: 'Your Purchase has been deleted.',
+                text: 'Study session has been deleted.',
                 icon: 'success',
               })
             } else {
@@ -128,57 +137,53 @@ const ViewAllStudySession = () => {
                           <h2 className='text-sm font-normal '>{studySession.status}</h2>
                         </div>
                       </td>
-                    <td className='px-4 py-4 text-sm whitespace-nowrap'>
-                      <div  className='flex items-center gap-x-6'>
-                        {/* Open the modal using document.getElementById('ID').showModal() method */}
-<button  className="btn bg-fuchsia-400" onClick={()=>document.getElementById('my_modal_5').showModal()}><svg
-                            xmlns='http://www.w3.org/2000/svg'
-                            fill='none'
-                            viewBox='0 0 24 24'
-                            strokeWidth='1.5'
-                            stroke='currentColor'
-                            className='w-5 h-5'
+                      
+                      <td className='px-4 py-4 text-sm whitespace-nowrap'>
+                        <div className='flex items-center gap-x-6'>
+                          {/* Accept Button: In Progress */}
+                          <button
+                            onClick={handleStatusUpdate}
+                        
+                            className='disabled:cursor-not-allowed text-gray-500 transition-colors duration-200   hover:text-red-500 focus:outline-none'
                           >
-                            <path
-                              strokeLinecap='round'
-                              strokeLinejoin='round'
-                              d='m4.5 12.75 6 6 9-13.5'
-                            />
-                          </svg></button>
-<dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-  <div className="modal-box">
-    <form>
-    <label className="form-control w-full max-w-xs">
-  <div className="label">
-    <span className="label-text">Is the session free or paid?</span>
-  </div>
-  <input type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
-</label>
-    <label className="form-control w-full max-w-xs">
-  <div className="label">
-    <span className="label-text">If it is paid, specify the amount</span>
-  </div>
-  <input type="number" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
-</label>
-    <label className="form-control w-full max-w-xs">
-  <div className="label">
-    <span className="label-text">If it is free, just set the value to 0</span>
-  </div>
-  <input type="number" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
-</label>
-    </form>
-    <div className="modal-action">
-      <form method="dialog">
-        {/* if there is a button in form, it will close the modal */}
-        <button className="btn w-full">Save Data</button>
-      </form>
-    </div>
-  </div>
-</dialog>
-          <button onClick={()=>handleDelete(studySession._id)} className='btn bg-red-500'><AiFillDelete /></button>
-                      </div>
-                     
-                    </td>
+                            <svg
+                              xmlns='http://www.w3.org/2000/svg'
+                              fill='none'
+                              viewBox='0 0 24 24'
+                              strokeWidth='1.5'
+                              stroke='currentColor'
+                              className='w-5 h-5'
+                            >
+                              <path
+                                strokeLinecap='round'
+                                strokeLinejoin='round'
+                                d='m4.5 12.75 6 6 9-13.5'
+                              />
+                            </svg>
+                          </button>
+                          {/* Reject Button */}
+                          <button
+                            onClick={handleDelete}
+                            disabled={studySession.status === 'Complete'}
+                            className='disabled:cursor-not-allowed text-gray-500 transition-colors duration-200   hover:text-yellow-500 focus:outline-none'
+                          >
+                            <svg
+                              xmlns='http://www.w3.org/2000/svg'
+                              fill='none'
+                              viewBox='0 0 24 24'
+                              strokeWidth='1.5'
+                              stroke='currentColor'
+                              className='w-5 h-5'
+                            >
+                              <path
+                                strokeLinecap='round'
+                                strokeLinejoin='round'
+                                d='M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636'
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </td>
                   </tr>))
                  }
                 </tbody>

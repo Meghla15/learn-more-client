@@ -42,7 +42,8 @@ const route = createBrowserRouter([{
     path : '/paymentPage/:id',
     element : <PrivetRoute><PaymentPage></PaymentPage></PrivetRoute>,
     loader:({params}) =>fetch (`${import.meta.env.VITE_API_URL}/studySession/${params.id}`)
-   }]},
+   }
+  ]},
    {
     path : '/dashboard',
     element : <DashBoard></DashBoard>,
@@ -65,30 +66,29 @@ const route = createBrowserRouter([{
           path : 'managePersonalNote',
           element : <PrivetRoute><ManagePersonalNote></ManagePersonalNote></PrivetRoute>,
           loader:() =>fetch (`${import.meta.env.VITE_API_URL}/storeNotes`),
-        },
+        },      
         {
           path: 'bookedSession',
           element : <PrivetRoute><ViewBooked></ViewBooked></PrivetRoute>,
-          loader:() =>fetch (`${import.meta.env.VITE_API_URL}/studySessions`),
          
-        },
+        },     
         {
           path: 'profile',
           element:<PrivetRoute><Profile></Profile></PrivetRoute>
-        },
+        },         
         
-        // Admin Route
+  //       // Admin Route
         {
           path : 'ViewAllUsers',
           element : <AdminRoute><ViewAllUsers></ViewAllUsers></AdminRoute>, 
           loader:() =>fetch (`${import.meta.env.VITE_API_URL}/users`),
-        },
+        },   
         {
           path : 'viewAllStudySession',
           element : <AdminRoute><ViewAllStudySession></ViewAllStudySession></AdminRoute>,
           loader:() =>fetch (`${import.meta.env.VITE_API_URL}/studySessions`),
-        },
-        // tutor route
+        },  
+  //       // tutor route
         {
           path : 'CreateStudySession',
           element : <PrivetRoute><CreateStudySession></CreateStudySession></PrivetRoute>
@@ -96,19 +96,19 @@ const route = createBrowserRouter([{
         {
           path : 'ViewAllSession',
           element :<PrivetRoute> <ViewAllSession></ViewAllSession></PrivetRoute>
+         
         },
         {
-          path : 'uploadMaterials',
+          path : 'uploadMaterials/:id',
           element :<PrivetRoute><UploadMaterials></UploadMaterials></PrivetRoute>,
-          loader:() =>fetch (`${import.meta.env.VITE_API_URL}/materials`),
-          
-          // loader:() =>fetch (`${import.meta.env.VITE_API_URL}/studySessions`)
+          loader:({params}) =>fetch (`${import.meta.env.VITE_API_URL}/material/${params.id}`)
         },
 
     ]
 
    },
 { path: '/login', element: <Login /> },
-{ path: '/sign-up', element: <SignUp /> },])
+{ path: '/sign-up', element: <SignUp /> },
+])
 
 export default route;

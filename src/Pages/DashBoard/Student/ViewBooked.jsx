@@ -1,17 +1,22 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { Link} from "react-router-dom";
 import UseAuth from "../../../Hooks/UseAuth";
-import { useEffect, useState } from "react";
+import { useState,useEffect } from "react";
 import axios from "axios";
 
 const ViewBooked = () => {
-  const studySections = useLoaderData()
      const {user} = UseAuth()
-     const [booked , setBooked] = useState()
-     useEffect(() =>{
-      const getData = async () =>{
-        const {data} = await axios()
-      }
-     })
+     const[books, setBooks] = useState()
+
+     useEffect(() => {
+      getData()
+     }, [user])
+
+     const getData = async () => {
+      const { data } = await axios ( `${import.meta.env.VITE_API_URL}/bookedSession/${user?.email}`)
+      setBooks(data)
+      console.log(data)
+    }
+     
     return (
         <div>
            <div className="mb-16">
@@ -22,7 +27,7 @@ const ViewBooked = () => {
           </h2>
 
           <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">
-          {studySections.length}
+          {/* {studySections.length} */}
           </span>
         </div>
 
