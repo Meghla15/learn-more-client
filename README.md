@@ -1,22 +1,34 @@
-1.Admin Name - Likhon Ahmmed
-2.Admin Email - 1morelearn@gmail.com
-3.Password - 123Aa@
+Website Name: Learn More
+Live Site link: https://learn-more-f83e2.web.app
 
-<!-- Load hoite ektu somoy ney -->
-Assignment12_category_0023
+Description:
+This educational platform offers a comprehensive suite for students, tutors, and admins. Students can browse and book courses using card payments, access their booked courses in the student dashboard, and manage notes. Tutors can upload courses, view their sessions, and manage their content via the tutor dashboard. Admins have the capability to view all users, update roles (student to tutor, tutor to admin, admin to student, etc.), and manage session information, including deletion and updates. The platform ensures seamless course management and user interaction for an enhanced learning experience.
 
-Website Name- Learn More
-LiveSite link - https://learn-more-f83e2.web.app
+Best Features: i.Three dashboards for students, tutors, and admins.
+              ii.Ability to update user roles.
+             iii.Secure payment methods and transaction history.
+               
+Project's Best Technologies: i.React
+                            ii.JavaScript
+                           iii.MongoDB
+                            iv.Firebase
+                             v.Tailwind
+Admin Name: Likhon Ahmmed
+Email: 1morelearn@gmail.com
+Password: 123Aa@
 
-Bullet Point - 1.Navbar
-               2.Banner
-               3.Study Session
-               4.Tutor session
-               5.Footer
-               6.Dashboard
-               7.Admin Dashboard
-               8.Tutor Dashboard
-               9.JWT
-               10.Upload Materials
+To Clone the Repo and Run Locally:
+
+i. git clone <repo_url>
+ii. cd <repo_name>
+iii. npm install
+iv. Create a .env file and add necessary variables.
+v. npm start
+vi. Open http://localhost:3000 in your browser.
+
+
+
+
+
 
 
