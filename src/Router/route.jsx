@@ -21,93 +21,147 @@ import ViewAllSession from "../Pages/DashBoard/Tutor/ViewAllSession";
 import Profile from "../Pages/DashBoard/Profile";
 import PrivetRoute from "../Router/PrivetRoute/PrivetRoute";
 import AdminRoute from "./AdminRoute/AdminRoute";
-const route = createBrowserRouter([{
-    path:'/',
+const route = createBrowserRouter([
+  {
+    path: "/",
     element: <Root></Root>,
     errorElement: <ErrorPage></ErrorPage>,
-    children :[
-    {
-      path: '/',
-      element :<Home></Home>,
-      loader:() =>fetch (`${import.meta.env.VITE_API_URL}/studySessions`)
-    },
-   {
-    path: '/detailsPage/:id',
-    element :<PrivateRoute><DetailsPage></DetailsPage></PrivateRoute>,
-    loader:({params}) =>fetch (`${import.meta.env.VITE_API_URL}/studySession/${params.id}`),
-    
-   },
-   {
-    path : '/paymentPage/:id',
-    element : <PrivetRoute><PaymentPage></PaymentPage></PrivetRoute>,
-    loader:({params}) =>fetch (`${import.meta.env.VITE_API_URL}/studySession/${params.id}`)
-   }
-  ]},
-   {
-    path : '/dashboard',
-    element : <DashBoard></DashBoard>,
-    children : [
+    children: [
       {
-        path : '/dashboard',
-        element : <PrivetRoute><ViewAllMaterials></ViewAllMaterials></PrivetRoute>
+        path: "/",
+        element: <Home></Home>,
+        loader: () => fetch(`${import.meta.env.VITE_API_URL}/studySessions`),
       },
-       
-        {
-          path : 'createNote',
-          element : <PrivetRoute><CreateNote></CreateNote></PrivetRoute>
-        },
-        {
-          path : 'update/:id',
-          element : <PrivetRoute><Update></Update></PrivetRoute>,
-          loader:({params}) =>fetch (`${import.meta.env.VITE_API_URL}/storeNote/${params.id}`)
-        },
-        {
-          path : 'managePersonalNote',
-          element : <PrivetRoute><ManagePersonalNote></ManagePersonalNote></PrivetRoute>,
-          loader:() =>fetch (`${import.meta.env.VITE_API_URL}/storeNotes`),
-        },      
-        {
-          path: 'bookedSession',
-          element : <PrivetRoute><ViewBooked></ViewBooked></PrivetRoute>,
-         
-        },     
-        {
-          path: 'profile',
-          element:<PrivetRoute><Profile></Profile></PrivetRoute>
-        },         
-        
-  //       // Admin Route
-        {
-          path : 'ViewAllUsers',
-          element : <AdminRoute><ViewAllUsers></ViewAllUsers></AdminRoute>, 
-          loader:() =>fetch (`${import.meta.env.VITE_API_URL}/users`),
-        },   
-        {
-          path : 'viewAllStudySession',
-          element : <AdminRoute><ViewAllStudySession></ViewAllStudySession></AdminRoute>,
-          loader:() =>fetch (`${import.meta.env.VITE_API_URL}/studySessions`),
-        },  
-  //       // tutor route
-        {
-          path : 'CreateStudySession',
-          element : <PrivetRoute><CreateStudySession></CreateStudySession></PrivetRoute>
-        },
-        {
-          path : 'ViewAllSession',
-          element :<PrivetRoute> <ViewAllSession></ViewAllSession></PrivetRoute>
-         
-        },
-        {
-          path : 'uploadMaterials/:id',
-          element :<PrivetRoute><UploadMaterials></UploadMaterials></PrivetRoute>,
-          loader:({params}) =>fetch (`${import.meta.env.VITE_API_URL}/material/${params.id}`)
-        },
+      {
+        path: "/detailsPage/:id",
+        element: (
+          <PrivateRoute>
+            <DetailsPage></DetailsPage>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/studySession/${params.id}`),
+      },
+      {
+        path: "/paymentPage/:id",
+        element: (
+          <PrivetRoute>
+            <PaymentPage></PaymentPage>
+          </PrivetRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/studySession/${params.id}`),
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <DashBoard></DashBoard>,
+    children: [
+      {
+        path: "/dashboard",
+        element: (
+          <PrivetRoute>
+            <ViewAllMaterials></ViewAllMaterials>
+          </PrivetRoute>
+        ),
+        loader: () => fetch(`${import.meta.env.VITE_API_URL}/studySessions`),
+      },
 
-    ]
+      {
+        path: "createNote",
+        element: (
+          <PrivetRoute>
+            <CreateNote></CreateNote>
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "update/:id",
+        element: (
+          <PrivetRoute>
+            <Update></Update>
+          </PrivetRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/storeNote/${params.id}`),
+      },
+      {
+        path: "managePersonalNote",
+        element: (
+          <PrivetRoute>
+            <ManagePersonalNote></ManagePersonalNote>
+          </PrivetRoute>
+        ),
+        loader: () => fetch(`${import.meta.env.VITE_API_URL}/storeNotes`),
+      },
+      {
+        path: "bookedSession",
+        element: (
+          <PrivetRoute>
+            <ViewBooked></ViewBooked>
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "profile",
+        element: (
+          <PrivetRoute>
+            <Profile></Profile>
+          </PrivetRoute>
+        ),
+      },
 
-   },
-{ path: '/login', element: <Login /> },
-{ path: '/sign-up', element: <SignUp /> },
-])
+      //       // Admin Route
+      {
+        path: "ViewAllUsers",
+        element: (
+          <AdminRoute>
+            <ViewAllUsers></ViewAllUsers>
+          </AdminRoute>
+        ),
+        loader: () => fetch(`${import.meta.env.VITE_API_URL}/users`),
+      },
+      {
+        path: "viewAllStudySession",
+        element: (
+          <AdminRoute>
+            <ViewAllStudySession></ViewAllStudySession>
+          </AdminRoute>
+        ),
+        loader: () => fetch(`${import.meta.env.VITE_API_URL}/studySessions`),
+      },
+      //       // tutor route
+      {
+        path: "CreateStudySession",
+        element: (
+          <PrivetRoute>
+            <CreateStudySession></CreateStudySession>
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "ViewAllSession",
+        element: (
+          <PrivetRoute>
+            <ViewAllSession></ViewAllSession>
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "uploadMaterials/:id",
+        element: (
+          <PrivetRoute>
+            <UploadMaterials></UploadMaterials>
+          </PrivetRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/material/${params.id}`),
+      },
+    ],
+  },
+  { path: "/login", element: <Login /> },
+  { path: "/sign-up", element: <SignUp /> },
+]);
 
 export default route;

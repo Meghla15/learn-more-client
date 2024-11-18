@@ -5,53 +5,54 @@ import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import SocialLogin from "./SocialLogin";
+import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const axiosPublic = useAxiosPublic()
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const axiosPublic = useAxiosPublic();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
   const from = location?.state || "/";
 
-  const {
-    createUser,
-    updateUserProfile,
-    loading,
-  } = UseAuth();
+  const { createUser, updateUserProfile, loading } = UseAuth();
 
-  
+  const [showPassword, setShowPassword] = useState(false);
 
-  const onSubmit = data =>{
-    createUser(data.email, data.password)
-    .then(result =>{
+  const onSubmit = (data) => {
+    createUser(data.email, data.password).then((result) => {
       const loggedUser = result.user;
-      console.log(loggedUser)
+      console.log(loggedUser);
       updateUserProfile(data.name, data.photoURL)
-      .then(() =>{
-        const userInfo = {
-          name: data.name,
-          email: data.email,
-          role : 'student' ,
-          status : 'Verified'
-        }
-        axiosPublic.post('/users', userInfo)
-        .then(res =>{
-          if(res.data.insertedId){
-            console.log('user added to the database')
-            reset()
-            Swal.fire({
-              position: "top-end",
-              icon: 'success',
-              title: "User SignUp Successfully",
-              showConfirmButton: false,
-              timer: 1500
-            })
-            navigate(from);
-          }
+        .then(() => {
+          const userInfo = {
+            name: data.name,
+            email: data.email,
+            role: "student",
+            status: "Verified",
+          };
+          axiosPublic.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              console.log("user added to the database");
+              reset();
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "User SignUp Successfully",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              navigate(from);
+            }
+          });
         })
-      })
-      .catch(error => console.log(error))
-    })
-  }
+        .catch((error) => console.log(error));
+    });
+  };
   return (
     <div className="flex justify-center items-center min-h-screen bg-violet-50">
       <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-purple-100 text-gray-900">
@@ -72,40 +73,87 @@ const SignUp = () => {
               <label htmlFor="email" className="block mb-2 text-sm">
                 Name
               </label>
-              <input type="text"  {...register("name", { required: true })} name="name" placeholder="Name" className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-fuchsia-500 bg-gray-200 text-gray-900" />
-                                {errors.name && <span className="text-red-600">Name is required</span>}
+              <input
+                type="text"
+                {...register("name", { required: true })}
+                name="name"
+                placeholder="Name"
+                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-fuchsia-500 bg-gray-200 text-gray-900"
+              />
+              {errors.name && (
+                <span className="text-red-600">Name is required</span>
+              )}
             </div>
 
             <div>
               <label htmlFor="email" className="block mb-2 text-sm">
                 Email address
               </label>
-              <input type="email"  {...register("email", { required: true })} name="email" placeholder="email" className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-fuchsia-500 bg-gray-200 text-gray-900" />
-                                {errors.email && <span className="text-red-600">Email is required</span>}
+              <input
+                type="email"
+                {...register("email", { required: true })}
+                name="email"
+                placeholder="email"
+                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-fuchsia-500 bg-gray-200 text-gray-900"
+              />
+              {errors.email && (
+                <span className="text-red-600">Email is required</span>
+              )}
             </div>
             <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">Photo URL</span>
-                                </label>
-                                <input type="text"  {...register("photoURL", { required: true })} placeholder="Photo URL" className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-fuchsia-500 bg-gray-200 text-gray-900" />
-                                {errors.photoURL && <span className="text-red-600">Photo URL is required</span>}
-                            </div>
+              <label className="label">
+                <span className="label-text">Photo URL</span>
+              </label>
+              <input
+                type="text"
+                {...register("photoURL", { required: true })}
+                placeholder="Photo URL"
+                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-fuchsia-500 bg-gray-200 text-gray-900"
+              />
+              {errors.photoURL && (
+                <span className="text-red-600">Photo URL is required</span>
+              )}
+            </div>
             <div>
               <div className="flex justify-between">
                 <label htmlFor="password" className="text-sm mb-2">
                   Password
                 </label>
               </div>
-              <input type="password"  {...register("password", {
-                                    required: true,
-                                    minLength: 6,
-                                    maxLength: 20,
-                                    pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
-                                })} placeholder="password" className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-fuchsia-500 bg-gray-200 text-gray-900" />
-                                {errors.password?.type === 'required' && <p className="text-red-600">Password is required</p>}
-                                {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be 6 characters</p>}
-                                {errors.password?.type === 'maxLength' && <p className="text-red-600">Password must be less than 20 characters</p>}
-                                {errors.password?.type === 'pattern' && <p className="text-red-600">Password must have one Uppercase one lower case, one number and one special character.</p>}
+              <input
+                {...register("password", {
+                  required: true,
+                  minLength: 6,
+                  maxLength: 20,
+                  pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
+                })}
+                type={showPassword ? "text" : "password"}
+                placeholder="password"
+                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-fuchsia-500 bg-gray-200 text-gray-900"
+              />
+              {errors.password?.type === "required" && (
+                <p className="text-red-600">Password is required</p>
+              )}
+              {errors.password?.type === "minLength" && (
+                <p className="text-red-600">Password must be 6 characters</p>
+              )}
+              {errors.password?.type === "maxLength" && (
+                <p className="text-red-600">
+                  Password must be less than 20 characters
+                </p>
+              )}
+              {errors.password?.type === "pattern" && (
+                <p className="text-red-600">
+                  Password must have one Uppercase one lower case, one number
+                  and one special character.
+                </p>
+              )}
+              <span
+                className="absolute mt-4"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}
+              </span>
             </div>
             <div>
               <div className="flex justify-between">
@@ -130,7 +178,6 @@ const SignUp = () => {
               type="submit"
               className="bg-gradient-to-r from-fuchsia-500  to-purple-500 w-full rounded-md py-3 text-white"
             >
-              
               {loading ? (
                 <TbFidgetSpinner className="animate-spin m-auto" />
               ) : (
@@ -147,7 +194,7 @@ const SignUp = () => {
           <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
         </div>
         <SocialLogin></SocialLogin>
-       
+
         <p className="px-6 text-sm text-center text-gray-400">
           Already have an account?
           <Link

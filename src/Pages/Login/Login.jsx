@@ -78,34 +78,7 @@ const Login = () => {
     console.log(email);
   };
 
-  // handle google signin
-  // const handleGoogleSignIn = async () => {
-  //   try {
-  //     await signInWithGoogle();
-  //     Swal.fire({
-  //       title: "Google Login Successfully",
-  //       showClass: {
-  //         popup: `
-  //           animate__animated
-  //           animate__fadeInUp
-  //           animate__faster
-  //         `
-  //       },
-  //       hideClass: {
-  //         popup: `
-  //           animate__animated
-  //           animate__fadeOutDown
-  //           animate__faster
-  //         `
-  //       }
-  //     });
-  //     navigate(from);
-  //     // toast.success("SignUp Successful");
-  //   } catch (err) {
-  //     console.log(err);
-  //     toast.error(err.message);
-  //   }
-  // };
+
   return (
     <div className="flex lg:flex-row flex-col-reverse gap-4 justify-evenly items-center bg-violet-50 ">
       <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-purple-100 text-gray-900">
